@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DIY Forests — Trainings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F4F1E8; --bg-raised:#FAF9F5; --secondary:#EAE6DA; --surface:#FAF9F5;
+    --ink:#292724; --ink-soft:#625D57; --forest:#493631; --forest-dark:#362823; --forest-ink:#493631;
+    --muted-forest:#98533F; --earth:#A5644B; --line:#D6D1C4; --white:#FFFFFF; --on-forest:#F7F4EE;
+    --on-forest-muted:#E5D8CE; --header-bg:rgba(244,241,232,.92); --footer-muted:#E9E4D8; --footer-subtle:#C8C0AF;
+    --ochre:var(--earth); --ochre-soft:rgba(165,100,75,.12); --moss:var(--muted-forest); --moss-soft:rgba(152,83,63,.08); --bark:var(--forest);
+  --radius-s:6px; --radius-m:10px; --radius-l:18px; --radius-xl:26px;
+  --shadow:0 10px 24px -18px rgba(41,36,32,.18); --shadow-lift:0 18px 30px -22px rgba(41,36,32,.18);
+  --safe-t:env(safe-area-inset-top,0px); --safe-b:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth; scroll-padding-top:calc(78px + var(--safe-t));}
+html,body{height:100%;}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:'Work Sans',system-ui,sans-serif; font-size:18px; line-height:1.6; padding-top:var(--safe-t); padding-bottom:var(--safe-b); -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif; font-weight:600; color:var(--ink); margin:0 0 .4em 0; letter-spacing:-0.01em;}
+p{margin:0 0 1em 0; color:var(--ink-soft); max-width:62ch;}
+a{color:inherit;} button{font-family:inherit;} img,svg{max-width:100%; display:block;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 clamp(20px,4vw,40px);}
+.overflow-x{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+:focus-visible{outline:3px solid var(--ochre); outline-offset:2px; border-radius:4px;}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important; transition-duration:.001ms!important; scroll-behavior:auto!important;}}
+
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:.5em; border:none; cursor:pointer; border-radius:8px; font-weight:600; font-size:.95rem; padding:.82em 1.5em; transition:transform .15s ease,background .2s ease,border-color .2s ease,color .2s ease; white-space:nowrap;}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--forest); color:var(--on-forest); border:1px solid var(--forest);}
+.btn-primary:hover{background:var(--forest-dark); border-color:var(--forest-dark);}
+.btn-primary:disabled{background:var(--forest-dark); cursor:not-allowed; opacity:.75;}
+.btn-outline{background:transparent; color:var(--forest-ink); border:1.5px solid var(--muted-forest);}
+.btn-outline:hover{background:var(--surface); border-color:var(--forest); color:var(--forest-ink);}
+.btn-ochre{background:var(--earth); color:var(--white); border:1px solid var(--earth);}
+.btn-ochre:hover{background:#854A38; border-color:#854A38;}
+.btn-sm{padding:.55em 1.1em; font-size:.85rem;}
+.btn-block{width:100%;}
+
+header.site{position:sticky; top:0; z-index:80; background:var(--header-bg); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); padding-top:var(--safe-t);}
+.nav-row{display:flex; align-items:center; justify-content:space-between; height:74px;}
+.brand{display:flex; align-items:center; gap:.6em; font-family:'Fraunces',serif; font-weight:600; font-size:1.2rem; text-decoration:none; color:var(--ink);}
+.brand-mark{width:34px; height:34px; flex-shrink:0;}
+.brand small{display:block; font-family:'Work Sans',sans-serif; font-weight:500; font-size:.62rem; letter-spacing:.04em; color:var(--ink-soft);}
+.nav-links{display:flex; gap:4px; align-items:center;}
+.nav-links a{position:relative; padding:.6em .8em; border-radius:0; font-size:.92rem; font-weight:500; text-decoration:none; color:var(--ink-soft); transition:color .2s ease;}
+.nav-links a:hover{color:var(--ink); background:transparent;}
+.nav-links a.active{color:var(--forest-ink); font-weight:700;}
+.nav-links a.active::after{content:""; position:absolute; left:.8em; right:.8em; bottom:.2em; height:2px; background:var(--muted-forest); border-radius:2px;}
+.nav-right{display:flex; align-items:center; gap:10px;}
+.icon-toggle{width:44px; height:44px; border-radius:50%; border:1.5px solid var(--line); background:var(--bg-raised); cursor:pointer; display:flex; align-items:center; justify-content:center; position:relative;}
+.icon-toggle{color:var(--forest-ink);}
+.icon-toggle:hover{border-color:var(--forest-ink);}
+.cart-btn.bump{animation:cartBump .5s cubic-bezier(.34,1.56,.64,1);}
+@keyframes cartBump{0%{transform:scale(1);}35%{transform:scale(1.22) rotate(-6deg);}60%{transform:scale(.94) rotate(4deg);}100%{transform:scale(1);}}
+.cart-badge{position:absolute; top:-4px; right:-4px; background:var(--ochre); color:#fff; font-size:.68rem; font-weight:700; min-width:19px; height:19px; border-radius:999px; display:flex; align-items:center; justify-content:center; padding:0 4px; border:2px solid var(--bg);}
+.hamburger{display:none; width:44px; height:44px; border-radius:50%; border:1.5px solid var(--line); background:var(--bg-raised); cursor:pointer; align-items:center; justify-content:center;}
+.mobile-menu{display:none;}
+@media (max-width:860px){.nav-links{display:none;} .hamburger{display:flex;} .mobile-menu.open{display:flex; flex-direction:column; gap:2px; padding:10px clamp(20px,4vw,40px) 18px; border-top:1px solid var(--line);} .mobile-menu a{padding:.9em .3em; text-decoration:none; color:var(--ink); font-weight:500; border-bottom:1px solid var(--line);}}
+
+.founder-story{padding:18px 0 8px;}
+.founder-grid{display:grid; grid-template-columns:minmax(220px,0.8fr) minmax(0,1.2fr); gap:14px; align-items:center; max-width:1180px; margin:0 auto;}
+.founder-media{display:flex; align-items:stretch;}
+.founder-photo{position:relative; width:100%; max-width:360px; height:360px; overflow:hidden; border-radius:10px; border:1px solid var(--line); background:var(--secondary); margin:0 auto; display:flex; align-items:center; justify-content:center;}
+.founder-photo img{width:108%; height:108%; object-fit:cover; object-position:center center; display:block; transform:translate(-4%, -2%);}
+.founder-card{background:var(--bg-raised); border:1px solid var(--line); border-radius:10px; padding:16px 18px 14px; display:flex; flex-direction:column; justify-content:center; min-height:360px;}
+.story-label{display:inline-block; font-size:.7rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--forest-ink); margin-bottom:8px;}
+.founder-card h2{font-size:clamp(1.9rem,2.4vw,2.4rem); line-height:1.12; letter-spacing:-.04em; color:var(--forest); margin:0 0 8px;}
+.story-copy{display:grid; gap:.55rem; max-width:58ch;}
+.story-copy p{margin:0; font-size:.98rem; line-height:1.55; color:var(--ink-soft);}
+.meta-line{font-size:.72rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--forest-ink); margin:8px 0 0;}
+.milestones{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-top:12px;}
+.milestone{background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:8px 8px; min-height:62px; display:flex; flex-direction:column; justify-content:center;}
+.milestone-year{font-size:.66rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--forest-ink); display:block; margin-bottom:4px;}
+.milestone-text{font-size:.79rem; line-height:1.35; color:var(--ink);}
+.founder-cta{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;}
+.founder-cta .btn{margin-top:0;}
+@media (max-width:820px){.founder-grid{grid-template-columns:1fr;} .founder-photo{height:300px; max-width:420px;} .founder-card{min-height:auto;} .milestones{grid-template-columns:1fr;}}
+@media (max-width:480px){.founder-card h2{font-size:1.9rem;} .founder-cta .btn{width:100%; justify-content:center;} .founder-photo{height:270px;}}
+@media (prefers-reduced-motion: reduce){.founder-photo,.founder-card{transition:none!important; animation:none!important;}}
+
+.hero{padding:clamp(28px,5vw,58px) 0 clamp(28px,4vw,44px); position:relative; overflow:hidden; background:var(--bg);}
+.hero .wrap{display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(24px,5vw,64px); align-items:center;}
+.hero-eyebrow{display:inline-flex; align-items:center; gap:.5em; color:var(--forest-ink); font-weight:600; font-size:.85rem; margin-bottom:1.1em;}
+.hero-eyebrow svg{width:16px; height:16px;}
+.hero h1{font-size:clamp(2.1rem,4vw,3.2rem); line-height:1.08; max-width:14ch; color:var(--forest);}
+.hero h1 em{font-style:italic; color:var(--forest-ink);}
+.hero-copy p{font-size:1rem; line-height:1.55; max-width:48ch; color:var(--ink-soft); margin:0 0 .8em;}
+.hero-copy .hero-close{font-weight:600; color:var(--forest-ink); margin-bottom:0;}
+.hero-cta{display:flex; gap:14px; margin-top:1.6em; flex-wrap:wrap;}
+.hero-badges{display:flex; gap:10px; margin-top:2em; flex-wrap:wrap;}
+.hero-badges span{display:flex; align-items:center; gap:6px; font-size:.82rem; font-weight:600; color:var(--forest-ink); background:var(--secondary); padding:.5em 1em; border-radius:999px; border:1px solid var(--line);}
+.hero-badges svg{width:15px; height:15px;}
+.hero-art img{width:100%; aspect-ratio:1; object-fit:cover; border-radius:10px; box-shadow:none; border:1px solid var(--line); background:var(--secondary);}
+.floaty{animation:floaty 6s ease-in-out infinite;}
+@keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
+
+
+section{padding:clamp(50px,7vw,84px) 0;}
+.section-head{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:clamp(26px,4vw,40px); flex-wrap:wrap;}
+.section-head h2{font-size:clamp(1.7rem,2.8vw,2.3rem); max-width:20ch;}
+.section-tag{display:inline-block; font-size:.78rem; font-weight:700; letter-spacing:.03em; color:var(--forest-ink); background:var(--secondary); padding:.4em .9em; border-radius:999px; margin-bottom:.9em; border:1px solid var(--line);}
+.divider{height:1px; background:var(--line); border:none; margin:0;}
+/* ---- Featured training ---- */
+.featured-training{display:grid; grid-template-columns:minmax(0,.96fr) minmax(0,1.04fr); gap:clamp(28px,5vw,64px); align-items:center; max-width:1180px; margin:0 auto;}
+.course-gallery{position:relative; aspect-ratio:4/3; overflow:hidden; border:1px solid var(--line); border-radius:10px; background:var(--secondary);}
+.course-gallery img{width:100%; height:100%; object-fit:cover;}
+.course-gallery-controls{position:absolute; inset:auto 14px 14px; display:flex; align-items:center; justify-content:space-between;}
+.course-gallery-arrow{width:42px; height:42px; border:1px solid var(--line); border-radius:50%; background:var(--bg-raised); color:var(--ink); display:flex; align-items:center; justify-content:center; cursor:pointer;}
+.course-gallery-arrow:disabled{opacity:.55; cursor:default;}
+.course-gallery-arrow svg{width:18px; height:18px;}
+.course-gallery-dots{display:flex; gap:7px; align-items:center; padding:8px 11px; border-radius:999px; background:var(--bg-raised); border:1px solid var(--line);}
+.course-gallery-dot{width:7px; height:7px; border:0; border-radius:50%; padding:0; background:var(--line);}
+.course-gallery-dot.is-active{background:var(--forest);}
+.course-content{min-width:0;}
+.course-eyebrow{display:inline-block; color:var(--forest-ink); font-size:.74rem; font-weight:700; letter-spacing:.1em; margin-bottom:9px;}
+.course-content h3{font-size:clamp(1.8rem,3vw,2.5rem); line-height:1.12; color:var(--forest); margin:0 0 .35em;}
+.course-description{font-size:1rem; line-height:1.55; margin:0 0 18px;}
+.course-facts{display:grid; gap:5px; margin:0 0 16px; color:var(--ink); font-size:.92rem;}
+.course-suitable{font-size:.9rem; line-height:1.5; margin:0 0 18px;}
+.course-suitable strong{display:block; font-size:.78rem; color:var(--ink); margin-bottom:2px;}
+.course-price{font-family:'Fraunces',Georgia,serif; font-size:2rem; line-height:1.1; font-weight:600; color:var(--forest); margin:0 0 18px;}
+.course-actions{display:flex; flex-wrap:wrap; gap:10px;}
+.course-actions .btn{min-height:48px;}
+@media (max-width:680px){.featured-training{grid-template-columns:1fr; gap:22px;}}
+@media (max-width:480px){.course-actions{display:grid; grid-template-columns:1fr;}.course-actions .btn{width:100%;}}
+.includes-list{list-style:none; margin:0 0 1.2em; padding:0; display:flex; flex-direction:column; gap:7px;}
+.includes-list li{display:flex; gap:8px; font-size:.85rem; color:var(--ink-soft); align-items:flex-start;}
+.includes-list svg{width:15px; height:15px; flex-shrink:0; margin-top:2px; color:var(--forest-ink);}
+.price{font-family:'Fraunces',serif; font-weight:600; font-size:1.3rem; color:var(--forest);}
+
+/* ---- Offline workshop feature card ---- */
+.offline-feature{background:var(--secondary); color:var(--ink); border-radius:12px; padding:clamp(28px,4vw,46px); display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,4vw,50px); align-items:center; position:relative; overflow:hidden; margin-top:26px; box-shadow:none; border:1px solid var(--line);}
+.offline-feature::before{content:""; position:absolute; inset:0; background:rgba(165,100,75,.04); pointer-events:none;}
+.offline-feature > *{position:relative;}
+.offline-feature h3, .offline-feature h2{color:var(--forest);}
+.offline-feature p{color:var(--ink-soft);}
+@media (max-width:860px){.offline-feature{grid-template-columns:1fr;}}
+.offline-art{aspect-ratio:4/3; border-radius:10px; overflow:hidden; border:1px solid var(--line); box-shadow:none; position:relative; background:var(--secondary); touch-action:pan-y;}
+.offline-art img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:1; transition:opacity .24s ease;}
+.offline-gallery-arrow{position:absolute; top:50%; transform:translateY(-50%); width:40px; height:40px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); border-radius:8px; background:var(--bg-raised); color:var(--ink); font:500 1.5rem/1 'Work Sans',sans-serif; cursor:pointer; z-index:1;}
+.offline-gallery-arrow:hover{background:var(--surface); border-color:var(--forest);}
+.offline-gallery-arrow.prev{left:12px;}
+.offline-gallery-arrow.next{right:12px;}
+.offline-gallery-dots{position:absolute; left:50%; bottom:12px; transform:translateX(-50%); display:flex; align-items:center; gap:8px; padding:8px 11px; border:1px solid var(--line); border-radius:999px; background:var(--bg-raised); z-index:1;}
+.offline-gallery-dot{width:8px; height:8px; border:0; border-radius:50%; padding:0; background:var(--line); cursor:pointer;}
+.offline-gallery-dot.is-active{background:var(--forest);}
+.offline-tag{display:inline-block; font-size:.75rem; font-weight:700; letter-spacing:.03em; color:var(--forest-ink); background:var(--surface); padding:.4em .9em; border-radius:999px; margin-bottom:1em; border:1px solid var(--line);}
+.offline-price-row{display:flex; align-items:baseline; gap:8px; margin:1em 0 1.4em;}
+.offline-price-row .price{color:var(--forest); font-size:2rem;}
+.offline-price-row span.per{font-size:.85rem; color:var(--ink-soft);}
+
+/* ---- Webinar banner ---- */
+.webinar-banner{background:var(--secondary); border:1px solid var(--line); border-radius:12px; padding:clamp(24px,4vw,40px); display:grid; grid-template-columns:minmax(0,1fr) auto; gap:clamp(18px,3vw,32px); align-items:center; box-shadow:none; color:var(--ink); transition:border-color .2s ease;}
+.webinar-banner:hover{border-color:var(--forest-ink);}
+.webinar-details-link{display:grid; grid-template-columns:auto minmax(0,1fr); gap:clamp(18px,3vw,32px); align-items:center; min-width:0; color:inherit; text-decoration:none; border-radius:8px;}
+.webinar-details-link:hover .webinar-mid h3{color:var(--forest-dark);}
+@media (max-width:760px){.webinar-banner{grid-template-columns:1fr; text-align:center;} .webinar-details-link{grid-template-columns:1fr; gap:14px;} .webinar-details-link .webinar-icon{margin:0 auto;} .webinar-mid{text-align:center;} .seat-bar{margin-left:auto; margin-right:auto;}}
+.webinar-icon{width:64px; height:64px; border-radius:50%; background:var(--forest); display:flex; align-items:center; justify-content:center; flex-shrink:0; margin:0 auto; box-shadow:none;}
+.webinar-icon svg{width:30px; height:30px; color:var(--on-forest);}
+.webinar-mid .pulse-dot{display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--earth); margin-right:7px; animation:pulseDot 1.6s ease-in-out infinite;}
+@keyframes pulseDot{0%,100%{opacity:1;}50%{opacity:.25;}}
+.webinar-mid .live-tag{font-size:.78rem; font-weight:700; color:var(--forest-ink); letter-spacing:.03em;}
+.webinar-mid h3{font-size:1.35rem; margin:.3em 0 .25em; color:var(--forest);}
+.webinar-mid p{color:var(--ink-soft);}
+.webinar-countdown{display:flex; gap:clamp(10px,2vw,18px); margin:12px 0 10px;}
+.webinar-countdown-item{min-width:48px; display:grid; justify-items:center; line-height:1.2;}
+.webinar-countdown-item strong{font-size:1.05rem; font-variant-numeric:tabular-nums; color:var(--forest);}
+.webinar-countdown-item span{font-size:.6rem; font-weight:700; letter-spacing:.06em; color:var(--ink-soft);}
+.webinar-countdown-status{font-size:.82rem; font-weight:600; color:var(--forest-ink); margin:10px 0;}
+.seat-bar{width:100%; max-width:280px; height:8px; background:rgba(73,54,49,.10); border-radius:99px; overflow:hidden; margin:.6em 0;}
+.seat-bar-fill{height:100%; background:var(--muted-forest); border-radius:99px; transition:width .4s ease;}
+.webinar-right{text-align:center;}
+.webinar-right .price{font-size:1.7rem; display:block; margin-bottom:.5em; color:var(--forest);}
+
+/* ---- Chips (date pickers) ---- */
+.chip-date{padding:.7em 1.1em; border-radius:12px; border:1.5px solid var(--line); background:var(--bg-raised); color:var(--ink); font-size:.86rem; font-weight:600; cursor:pointer; transition:all .18s ease; text-align:center; line-height:1.3;}
+.chip-date:hover{border-color:var(--forest);}
+.chip-date.is-selected{background:var(--forest); border-color:var(--forest); color:var(--on-forest); box-shadow:0 10px 20px -14px rgba(73,54,49,.35);}
+.chip-date small{display:block; font-weight:500; font-size:.72rem; opacity:.75; margin-top:2px;}
+.date-chip-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:14px 0 20px;}
+@media (max-width:420px){.date-chip-grid{grid-template-columns:repeat(2,1fr);}}
+
+/* ---- Payment method chips ---- */
+.pay-methods{display:flex; gap:10px; margin:14px 0 4px; flex-wrap:wrap;}
+.pay-chip{flex:1; min-width:100px; display:flex; flex-direction:column; align-items:center; gap:6px; padding:.9em .6em; border-radius:12px; border:1.5px solid var(--line); background:var(--bg-raised); cursor:pointer; font-size:.78rem; font-weight:600; color:var(--ink-soft); transition:all .18s ease;}
+.pay-chip svg{width:22px; height:22px;}
+.pay-chip:hover{border-color:var(--forest);}
+.pay-chip.is-selected{border-color:var(--forest); background:var(--moss-soft); color:var(--forest-ink);}
+.checkout-fields{display:grid; gap:12px; margin:16px 0 4px;}
+.checkout-fields label{display:grid; gap:5px; font-size:.82rem; font-weight:600; color:var(--ink);}
+.checkout-fields input{width:100%; min-height:44px; padding:10px 12px; border:1.5px solid var(--line); border-radius:var(--radius-s); background:var(--bg-raised); color:var(--ink); font:inherit; font-size:.9rem;}
+.checkout-fields input:focus{outline:3px solid rgba(165,100,75,.16); outline-offset:2px; border-color:var(--forest); box-shadow:0 0 0 3px rgba(165,100,75,.16);}
+
+/* ---- Programs carousel ---- */
+.carousel-shell{position:relative;}
+.carousel-track{display:flex; gap:20px; overflow-x:auto; scroll-snap-type:x mandatory; padding:6px 4px 18px; -webkit-overflow-scrolling:touch; cursor:grab;}
+.carousel-track.dragging{cursor:grabbing; scroll-snap-type:none;}
+.carousel-track::-webkit-scrollbar{height:6px;}
+.carousel-track::-webkit-scrollbar-thumb{background:var(--moss); border-radius:99px;}
+.program-slide{flex:0 0 clamp(240px,30vw,320px); scroll-snap-align:start; background:var(--bg-raised); border:1px solid var(--line); border-radius:12px; overflow:hidden; display:flex; flex-direction:column; transition:transform .3s ease,box-shadow .3s ease; user-select:none;}
+.program-slide:hover{transform:translateY(-2px); box-shadow:var(--shadow);}
+.program-art{aspect-ratio:4/3; width:100%; overflow:hidden;}
+.program-art img{width:100%; height:100%; object-fit:cover; transition:transform .5s ease;}
+.program-slide:hover .program-art img{transform:scale(1.03);}
+.program-body{padding:18px 20px 22px;}
+.program-body .loc{font-size:.74rem; font-weight:700; color:var(--earth); letter-spacing:.02em; margin-bottom:.35em; display:block;}
+.program-body h3{font-size:1.02rem; margin-bottom:.3em;}
+.program-body p{font-size:.85rem; margin:0;}
+.program-link{display:inline-flex; margin-top:12px; color:var(--forest-ink); font-size:.82rem; font-weight:700; text-decoration:none;}
+.program-link:hover{text-decoration:underline;}
+.carousel-controls{display:flex; align-items:center; justify-content:space-between; margin-top:6px;}
+.carousel-dots{display:flex; gap:7px;}
+.carousel-dots button{width:8px; height:8px; border-radius:50%; border:none; background:var(--line); cursor:pointer; padding:0; transition:all .25s ease;}
+.carousel-dots button.is-active{background:var(--forest); width:22px; border-radius:5px;}
+.carousel-nav{display:flex; gap:10px;}
+.carousel-nav button{width:40px; height:40px; border-radius:50%; border:1.5px solid var(--line); background:var(--bg-raised); cursor:pointer; display:flex; align-items:center; justify-content:center;}
+.carousel-nav button:hover{border-color:var(--forest);}
+.carousel-nav svg{width:17px; height:17px;}
+
+/* ---- Trainee carousel ---- */
+.trainee-note{font-size:.86rem; margin-top:-18px; margin-bottom:24px;}
+.trainee-track{display:flex; gap:20px; overflow-x:auto; scroll-snap-type:x mandatory; padding:8px 6px 20px; -webkit-overflow-scrolling:touch; cursor:grab;}
+.trainee-track.dragging{cursor:grabbing; scroll-snap-type:none;}
+.trainee-track::-webkit-scrollbar{height:6px;}
+.trainee-track::-webkit-scrollbar-thumb{background:var(--moss); border-radius:99px;}
+.trainee-card{position:relative; flex:0 0 clamp(245px,28vw,300px); scroll-snap-align:start; padding:0; overflow:hidden; text-align:left; color:var(--ink); font:inherit; background:var(--bg-raised); border:1px solid var(--line); border-radius:10px; cursor:pointer; user-select:none; transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;}
+.trainee-card:hover,.trainee-card:focus-visible{transform:translateY(-2px); box-shadow:var(--shadow); border-color:var(--line); z-index:1;}
+.trainee-card.is-selected{transform:translateY(-1px); border-color:var(--forest); box-shadow:var(--shadow);}
+.trainee-photo{position:relative; aspect-ratio:4/3; overflow:hidden; background:var(--secondary);}
+.trainee-photo img{width:100%; height:100%; object-fit:cover; opacity:.9; transition:opacity .25s ease,transform .35s ease;}
+.trainee-card:hover .trainee-photo img,.trainee-card.is-selected .trainee-photo img{opacity:1; transform:scale(1.03);}
+.demo-label{position:absolute; left:12px; bottom:12px; padding:5px 9px; border-radius:6px; background:var(--forest); color:var(--on-forest); font-size:.68rem; font-weight:700; line-height:1.3;}
+.trainee-body{padding:18px 18px 20px;}
+.trainee-body h3{font-size:1.1rem; margin:0 0 3px;}
+.trainee-location{font-size:.83rem; color:var(--ink-soft); margin:0 0 7px;}
+.trainee-role{font-size:.8rem; font-weight:600; color:var(--forest-ink); margin:0;}
+.trainee-controls{margin-top:12px;}
+.trainee-nav-btn{width:auto!important; min-width:44px; height:44px; padding:0 12px; gap:6px; border-radius:999px!important; color:var(--ink); font-size:.82rem; font-weight:600;}
+.trainee-nav-btn svg{flex-shrink:0;}
+@media (prefers-reduced-motion:reduce){.trainee-card,.trainee-photo img{transition:none;}}
+
+/* ---- Reviews ---- */
+.review-track{display:flex; gap:22px; overflow-x:auto; padding:6px 4px 12px; scroll-snap-type:x proximity;}
+.review-card{flex:0 0 clamp(270px,30vw,340px); scroll-snap-align:start; background:var(--bg-raised); border:1px solid var(--line); border-radius:10px; padding:24px 24px 22px; display:flex; flex-direction:column; transition:transform .25s ease,box-shadow .25s ease;}
+.review-card:hover{transform:translateY(-2px); box-shadow:var(--shadow);}
+.stars{display:flex; gap:3px; margin-bottom:12px;}
+.stars svg{width:16px; height:16px; fill:var(--earth);}
+.review-card p.quote{font-size:.95rem; color:var(--ink); font-style:italic; flex:1;}
+.review-who{display:flex; align-items:center; gap:10px; margin-top:14px;}
+.avatar{width:38px; height:38px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff; font-size:.85rem; font-family:'Fraunces',serif;}
+.review-who strong{font-size:.88rem; display:block;}
+.review-who span{font-size:.76rem; color:var(--ink-soft);}
+
+footer.site{background:var(--forest); color:var(--on-forest); padding:clamp(40px,6vw,60px) 0 26px;}
+footer.site .wrap{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:32px;}
+@media (max-width:680px){footer.site .wrap{grid-template-columns:1fr;}}
+footer.site h4{color:var(--on-forest); font-size:.95rem; margin-bottom:1em;}
+footer.site p{color:var(--footer-muted); font-size:.9rem;}
+footer.site ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.6em;}
+footer.site a{text-decoration:none; color:var(--footer-muted); font-size:.9rem;}
+footer.site a:hover{color:var(--on-forest);}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.12); margin-top:32px; padding-top:18px; font-size:.8rem; color:var(--footer-subtle); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+
+.scrim{position:fixed; inset:0; background:rgba(26,24,22,.45); opacity:0; pointer-events:none; transition:opacity .25s ease; z-index:90;}
+.scrim{position:fixed; inset:0; background:rgba(26,24,22,.45); opacity:0; pointer-events:none; transition:opacity .25s ease; z-index:90;}
+.scrim.open{opacity:1; pointer-events:auto;}
+.cart-drawer{position:fixed; top:0; right:0; height:100%; width:min(420px,100%); background:var(--bg); z-index:95; transform:translateX(105%); transition:transform .35s cubic-bezier(.2,.85,.3,1); display:flex; flex-direction:column; box-shadow:-20px 0 50px -20px rgba(0,0,0,.35); padding-top:var(--safe-t); padding-bottom:var(--safe-b);}
+.cart-drawer.open{transform:translateX(0);}
+.cart-head{display:flex; align-items:center; justify-content:space-between; padding:20px 22px; border-bottom:1px solid var(--line);}
+.cart-head h3{margin:0; font-size:1.25rem;}
+.icon-btn{width:44px; height:44px; border-radius:50%; border:1px solid var(--line); background:var(--bg-raised); color:var(--ink); cursor:pointer; display:flex; align-items:center; justify-content:center;}
+.icon-btn svg{width:16px; height:16px;}
+.cart-items{flex:1; overflow-y:auto; padding:14px 22px;}
+.cart-item{display:flex; gap:14px; padding:14px 0; border-bottom:1px solid var(--line); animation:popIn .3s ease;}
+@keyframes popIn{from{opacity:0; transform:scale(.94) translateY(6px);} to{opacity:1; transform:scale(1) translateY(0);}}
+.cart-item .thumb{width:52px; height:52px; border-radius:10px; flex-shrink:0; overflow:hidden;}
+.cart-item .thumb img{width:100%; height:100%; object-fit:cover;}
+.cart-item .info{flex:1; min-width:0;}
+.cart-item .info h5{margin:0 0 3px; font-size:.9rem; font-family:'Work Sans',sans-serif; font-weight:600;}
+.cart-item .info span{font-size:.76rem; color:var(--ink-soft);}
+.cart-item .price-col{display:flex; flex-direction:column; align-items:flex-end; gap:6px;}
+.cart-item .price-col .price{font-size:.92rem;}
+.remove-link{background:none; border:none; color:var(--ochre); font-size:.76rem; cursor:pointer; padding:0; font-weight:600;}
+.cart-empty{padding:50px 10px; text-align:center; color:var(--ink-soft);}
+.cart-empty svg{width:52px; height:52px; margin:0 auto 14px; opacity:.5;}
+.cart-summary{border-top:1px solid var(--line); padding:18px 22px 22px; background:var(--bg-raised);}
+.cart-row{display:flex; justify-content:space-between; font-size:.9rem; margin-bottom:8px; color:var(--ink-soft);}
+.cart-row.total{font-size:1.05rem; font-weight:700; color:var(--ink); margin:12px 0 16px;}
+.cart-row.total .price{font-family:'Fraunces',serif;}
+
+.modal-scrim{position:fixed; inset:0; background:rgba(26,24,22,.55); z-index:110; display:none; align-items:center; justify-content:center; padding:20px;}
+.modal-scrim{position:fixed; inset:0; background:rgba(26,24,22,.55); z-index:110; display:none; align-items:center; justify-content:center; padding:20px;}
+.modal-scrim.open{display:flex;}
+.modal{background:var(--bg); border-radius:var(--radius-l); max-width:460px; width:100%; padding:28px 26px 26px; max-height:88vh; overflow-y:auto; animation:popIn .3s ease;}
+.modal h3{margin-bottom:.2em;}
+.modal .close-x{float:right; margin-top:-6px;}
+.order-line{display:flex; justify-content:space-between; font-size:.86rem; padding:8px 0; border-bottom:1px dashed var(--line);}
+.order-line small{display:block; color:var(--ink-soft); font-weight:400;}
+.order-total{display:flex; justify-content:space-between; font-weight:700; font-size:1.1rem; margin-top:14px;}
+.pay-success{text-align:center; padding:10px 0;}
+.pay-success svg{width:64px; height:64px; margin:0 auto 16px;}
+.pay-success h3{margin-bottom:.3em;}
+.confetti-piece{position:fixed; top:-10px; width:8px; height:14px; z-index:200; pointer-events:none; animation:confettiFall linear forwards;}
+@keyframes confettiFall{to{transform:translateY(100vh) rotate(540deg); opacity:0;}}
+
+.toast{position:fixed; bottom:calc(24px + var(--safe-b)); left:50%; transform:translateX(-50%) translateY(140%); background:var(--ink); color:var(--bg); padding:14px 22px; border-radius:999px; font-size:.88rem; font-weight:600; display:flex; align-items:center; gap:10px; z-index:130; transition:transform .35s cubic-bezier(.2,.9,.3,1.2); box-shadow:0 14px 34px -10px rgba(0,0,0,.4);}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.toast svg{width:16px; height:16px; flex-shrink:0;}
+.toast svg{color:var(--bg);}
+
+.top-btn{position:fixed; left:22px; bottom:calc(22px + var(--safe-b)); width:46px; height:46px; border-radius:50%; background:var(--forest); color:var(--on-forest); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transform:translateY(12px); transition:all .3s ease; z-index:70; box-shadow:var(--shadow);}
+.top-btn.show{opacity:1; pointer-events:auto; transform:translateY(0);}
+.top-btn svg{width:18px; height:18px;}
+
+@media (max-width:960px){.hero .wrap{grid-template-columns:1fr;} .hero-art{order:-1; max-width:280px; margin:0 auto;}}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav-row">
+    <a href="#top" class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="20" fill="var(--forest)"/><path d="M20 30V19M20 19C15 19 12 15 12 10C17 10 20 13 20 17C20 13 23 10 28 10C28 15 25 19 20 19Z" stroke="var(--on-forest)" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      <span>DIY Forests<br><small>BY SHUBHENDU SHARMA</small></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#trainings" data-section="trainings">Trainings</a>
+      <a href="#how-it-works" data-section="how-it-works">How It Works</a>
+      <a href="#offline" data-section="offline">Offline Workshop</a>
+      <a href="#webinar" data-section="webinar">Webinar</a>
+      <a href="#trainees" data-section="trainees">Trainees</a>
+      <a href="#programs" data-section="programs">Projects</a>
+      <a href="#reviews" data-section="reviews">Reviews</a>
+    </nav>
+    <div class="nav-right">
+      <button class="icon-toggle cart-btn" id="cartOpenBtn" aria-label="Open cart" style="width:auto; padding:0 14px 0 12px; border-radius:22px; gap:6px;">
+        <svg viewBox="0 0 24 24" fill="none" width="19" height="19" style="position:static;"><path d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L21 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.4" fill="currentColor"/><circle cx="17" cy="20" r="1.4" fill="currentColor"/></svg>
+        <span style="font-size:14px; font-weight:600;">Cart</span>
+        <span class="cart-badge" id="cartBadge" style="display:none; position:static; margin-left:2px;">0</span>
+      </button>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#trainings">Trainings</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#offline">Offline Workshop</a>
+    <a href="#webinar">Webinar</a>
+    <a href="#trainees">Trainees</a>
+    <a href="#programs">Projects</a>
+    <a href="#reviews">Reviews</a>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <h1>Learn to Grow a Forest</h1>
+      <p>Imagine a dense, thriving forest growing in your backyard, on a city plot, or even a patch of barren land.</p>
+      <p>Learn how with Shubhendu Sharma, the eco-entrepreneur who has helped grow hundreds of tiny, fast-growing forests around the world.</p>
+      <p>Master the method that grows native forests 10x faster and 30x denser, even in your backyard.</p>
+      <p class="hero-close">Enroll now and start planting your own forest!</p>
+      <div class="hero-cta">
+        <a href="#trainings" class="btn btn-primary">See trainings</a>
+        <a href="#webinar" class="btn btn-outline">This month's webinar — ₹149</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="https://afforestt.com/wp-content/uploads/2025/12/IMG_5304-1024x576.webp" alt="Native forest restoration project in the Lesser Caucasus, Armenia" fetchpriority="high" decoding="async">
+    </div>
+  </div>
+</section>
+
+<section class="founder-story" id="about-shubhendu" aria-labelledby="shubhendu-heading">
+  <div class="wrap founder-grid">
+    <div class="founder-media">
+      <div class="founder-photo">
+        <img src="./4c2a0a97a31a1e8bc7a05a2ee1835eaa636730e5_2400x1800-1024x768.webp" alt="Shubhendu Sharma, founder of Afforestt" loading="lazy" decoding="async">
+      </div>
+    </div>
+
+    <div class="founder-card">
+      <div class="story-label">MEET YOUR TRAINER</div>
+      <h2 id="shubhendu-heading">Shubhendu Sharma</h2>
+
+      <div class="story-copy">
+        <p>Shubhendu Sharma trained directly under Dr. Akira Miyawaki and turned his forest-making method into a replicable system. He founded Afforestt, which has built hundreds of dense native forests across the world, from backyards to industrial sites. A TED Fellow, he is a leading global voice in urban afforestation.</p>
+      </div>
+
+      <div class="meta-line">Industrial Engineer • Eco-entrepreneur • TED Fellow</div>
+
+      <div class="milestones" aria-label="Key milestones in Shubhendu Sharma's journey">
+        <div class="milestone">
+          <span class="milestone-year">2008</span>
+          <span class="milestone-text">Met Akira Miyawaki</span>
+        </div>
+        <div class="milestone">
+          <span class="milestone-year">2009</span>
+          <span class="milestone-text">Worked with Miyawaki's team</span>
+        </div>
+        <div class="milestone">
+          <span class="milestone-year">2011</span>
+          <span class="milestone-text">Founded Afforestt</span>
+        </div>
+      </div>
+
+      <div class="founder-cta">
+        <a class="btn btn-primary" href="https://www.ted.com/speakers/shubhendu_sharma" target="_blank" rel="noopener noreferrer">Explore on TED</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ TRAININGS ============ -->
+<section id="trainings">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="section-tag">Live online training</span><h2>Go deeper with the Miyawaki Method</h2></div>
+      <p style="margin:0; max-width:38ch;">A complete live training to understand the method and learn how to create a native forest from start to finish.</p>
+    </div>
+    <div class="featured-training" id="trainingGrid"></div>
+
+    <!-- Offline workshop feature card -->
+    <div id="offline" class="offline-feature">
+      <div>
+        <span class="offline-tag">5-day in-person residency</span>
+        <h2>Offline Workshop</h2>
+        <p>Five full days on the ground with our team — planting, soil work, species selection and design, done for real. Food and accommodation are included, so all you bring is yourself.</p>
+        <ul class="includes-list" id="offlineIncludes" style="color:var(--on-forest);"></ul>
+        <div class="offline-price-row"><span class="price" id="offlinePrice">₹1,00,000</span><span class="per">all-inclusive · 5 days</span></div>
+        <button class="btn btn-ochre" id="offlineEnrollBtn">Choose your start date</button>
+      </div>
+      <div class="offline-art" id="offlineArt"></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ WEBINAR ============ -->
+<section id="webinar">
+  <div class="wrap">
+    <div class="section-head"><div><span class="section-tag">Free to low-cost</span><h2>Monthly webinar</h2></div></div>
+    <div class="webinar-banner">
+      <a class="webinar-details-link" href="./monthly-webinar.html" aria-label="Learn more about the Monthly Webinar">
+        <div class="webinar-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="var(--on-forest)" stroke-width="1.8"/><path d="M3 10h18M8 3v4M16 3v4" stroke="var(--on-forest)" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <div class="webinar-mid">
+          <span class="live-tag"><span class="pulse-dot"></span>NEXT WEBINAR</span>
+          <h3 id="webinarDateLine">Loading…</h3>
+          <p style="margin-bottom:.3em;">An open Q&A introduction to the Miyawaki Method — great if you're not sure which training to start with.</p>
+          <div class="webinar-countdown" id="homeWebinarCountdown" aria-label="Time until the webinar" aria-live="off"></div>
+          <div class="seat-bar"><div class="seat-bar-fill" id="seatBarFill"></div></div>
+          <span id="seatsLeftText" style="font-size:.8rem; font-weight:600; color:var(--ochre);"></span>
+        </div>
+      </a>
+      <div class="webinar-right">
+        <span class="price" id="homeWebinarPrice">₹149</span>
+        <button class="btn btn-primary" id="webinarRegisterBtn">Reserve my seat</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ TRAINEES ============ -->
+<section id="trainees">
+  <div class="wrap">
+    <div class="section-head"><div><span class="section-tag">Learning together</span><h2>Meet Our Trainees</h2></div></div>
+    <p class="trainee-note">People learning and growing forests around the world. Profiles and photos below are illustrative demo content, not actual Afforestt trainees.</p>
+    <div class="carousel-shell">
+      <div class="trainee-track" id="traineeTrack" aria-label="Demo trainee profiles"></div>
+      <div class="carousel-controls trainee-controls">
+        <div class="carousel-dots" id="traineeDots" aria-label="Choose a trainee"></div>
+        <div class="carousel-nav">
+          <button class="trainee-nav-btn" id="traineePrev" aria-label="Previous trainee"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Previous</span></button>
+          <button class="trainee-nav-btn" id="traineeNext" aria-label="Next trainee"><span>Next</span><svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ PROGRAMS CAROUSEL ============ -->
+<section id="programs">
+  <div class="wrap">
+    <div class="section-head"><div><span class="section-tag">Field work</span><h2>What our Trainees Have Created</h2></div></div>
+    <div class="carousel-shell">
+      <div class="carousel-track overflow-x" id="programTrack"></div>
+      <div class="carousel-controls">
+        <div class="carousel-dots" id="programDots"></div>
+        <div class="carousel-nav">
+          <button id="progPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button id="progNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ REVIEWS ============ -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="section-head"><div><span class="section-tag">Reviews</span><h2>What past trainees say</h2></div></div>
+    <div class="review-track overflow-x" id="reviewTrack"></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <div class="brand" style="color:var(--on-forest); margin-bottom:14px;">
+        <svg class="brand-mark" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="20" fill="var(--bg-raised)"/><path d="M20 30V19M20 19C15 19 12 15 12 10C17 10 20 13 20 17C20 13 23 10 28 10C28 15 25 19 20 19Z" stroke="var(--forest)" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        <span style="color:var(--on-forest);">DIY Forests<br><small style="color:var(--footer-muted);">AN AFFORESTT INITIATIVE</small></span>
+      </div>
+      <p>DIY Forests is the training platform from Afforestt, who have been growing native forests using the Miyawaki method since 2011, founded by Shubhendu Sharma. Headquartered in Kashipur, Uttarakhand — our mission is to bring back lost native forests.</p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#trainings">Live trainings</a></li>
+        <li><a href="#trainees">Trainees</a></li>
+        <li><a href="#programs">Projects</a></li>
+        <li><a href="#offline">Offline workshop</a></li>
+        <li><a href="#webinar">Monthly webinar</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#" onclick="return false;">Help centre</a></li>
+        <li><a href="#" onclick="return false;">Refund policy</a></li>
+        <li><a href="#" onclick="return false;">Contact us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© 2026 DIY Forests. A demo page built for internship review.</span>
+    <span>Made with the Miyawaki method in mind 🌱</span>
+  </div>
+</footer>
+
+<div class="scrim" id="scrim"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+  <div class="cart-head"><h3>Your cart</h3><button class="icon-btn" id="cartCloseBtn" aria-label="Close cart"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-summary" id="cartSummary" style="display:none;">
+    <div class="cart-row"><span>Subtotal</span><span id="cartSubtotal">₹0</span></div>
+    <div class="cart-row"><span>GST (18%)</span><span id="cartGst">₹0</span></div>
+    <div class="cart-row total"><span>Total</span><span class="price" id="cartTotal">₹0</span></div>
+    <button class="btn btn-primary btn-block" id="checkoutBtn">Proceed to checkout</button>
+  </div>
+</aside>
+
+<div class="modal-scrim" id="modalScrim"><div class="modal" id="modalBody"></div></div>
+
+<div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="toastText">Added to cart</span></div>
+
+<button class="top-btn" id="topBtn" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+
+<script src="./webinar-data.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  var checkIconSm = '<svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var cartIconSm = '<svg viewBox="0 0 24 24" fill="none"><path d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L21 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var starIcon = '<svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L10 14.9 4.4 18l1.4-6.2L1 7.5l6.4-.6L10 1z"/></svg>';
+
+  var money = function(n,currency){
+    return currency==="USD" ? "$"+n.toLocaleString("en-US") : "\u20B9"+n.toLocaleString("en-IN");
+  };
+
+  /* ---------------- Data ---------------- */
+  var TRAININGS = [
+    { id:"crash", title:"Crash Course", tagline:"Basics and hands-on implementation of the Miyawaki Method.", duration:"2 hours", price:3500,
+      c1:"#493631", c2:"#A5644B", c3:"#D3A080", icon:"sprout",
+      image:"https://afforestt.com/wp-content/uploads/2025/12/IMG_2501-1024x576.webp", imageAlt:"Native forest restoration work in Tunisia",
+      audience:"Beginners who want to understand the basics.",
+      learn:["Understanding the Miyawaki Method","Choosing native species","Basic soil preparation","Basic planting process"],
+      includes:["Live 2-hour session, straight to the point","Downloadable planting checklist","Certificate of participation"]},
+    { id:"detailed", title:"Detailed Training", tagline:"A deeper, hands-on training for practical learners.", duration:"4 hours", price:5500,
+      c1:"#493631", c2:"#D3A080", c3:"#A5644B", icon:"soil",
+      image:"https://afforestt.com/wp-content/uploads/2025/07/dji_fly_20250112_105042_820_1737088407382_photo-1024x579.jpg", imageAlt:"Afforestt soil restoration project in Rajasthan",
+      audience:"People ready to start planning a real site.",
+      learn:["Reading soil and site conditions","Building a native species list","Planning the planting layout","Aftercare for the first few months"],
+      includes:["Live 4-hour session covering soil, species and layout","Worked example using a real site plan","Certificate of participation"]},
+    { id:"indepth", title:"In-depth Training", tagline:"Know everything about the Method — spread over 2 days.", duration:"8 hours · 2 days", price:500, currency:"USD",
+      c1:"#493631", c2:"#A5644B", c3:"#D3A080", icon:"book",
+      image:"https://afforestt.com/wp-content/uploads/2026/01/Project2-1024x696.webp", imageAlt:"Afforestt linear urban forest project in Springfield, Massachusetts",
+      images:[
+        {src:"./WhatsApp%20Image%202026-10-07%20at%204.41.12%20PM.jpeg",alt:"Forest growth from a newly planted site to a dense native forest"},
+        {src:"./WhatsApp%20Image%202026-10-07%20at%204.41.13%20PM%20(1).jpeg",alt:"Dense native forest with more than 20,000 seedlings"},
+        {src:"./WhatsApp%20Image%202026-10-07%20at%204.41.13%20PM.jpeg",alt:"Native forest growth from initial planting to a mature site"},
+        {src:"https://afforestt.com/wp-content/uploads/2026/01/Project2-1024x696.webp",alt:"Afforestt linear urban forest project in Springfield, Massachusetts"}
+      ],
+      audience:"Anyone who wants to know the full method, start to finish.",
+      learn:["Soil science in depth","Full species-selection process","Site design and planning","How to guide others through the method"],
+      includes:["Two 4-hour live sessions, a week apart","Recordings and all worksheets to keep","Certificate of completion"]}
+  ];
+  /* "learn" and "includes" content above is a first draft for review, not
+     confirmed Afforestt material — please check it before this goes live. */
+
+  var OFFLINE = { title:"Offline Workshop", price:100000, image:"https://afforestt.com/wp-content/uploads/2025/12/DSC00830-1024x768.webp", imageAlt:"Native forest created through an Afforestt restoration project", images:[
+    {src:"./offline%20training%20ima/WhatsApp%20Image%202026-10-07%20at%204.45.08%20PM.jpeg",alt:"Offline workshop participant exploring a mature forest tree"},
+    {src:"./offline%20training%20ima/WhatsApp%20Image%202026-10-07%20at%204.45.08%20PM%20(1).jpeg",alt:"Offline workshop participants visiting a forest restoration site"},
+    {src:"./offline%20training%20ima/WhatsApp%20Image%202026-10-07%20at%204.45.07%20PM.jpeg",alt:"Offline workshop group walking through a forest restoration site"}
+  ], includes:["Hands-on training for 5 full days","Accommodation included","All meals included","Small batch size, real planting site"] };
+
+  /* ---------------- Icon motifs ---------------- */
+  var ICONS = {
+    sprout:'<path d="M150 130c0-30 25-45 50-45 0 30-20 45-50 45zM150 130c0-30-25-45-50-45 0 30 20 45 50 45zM150 130v55" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>',
+    soil:'<path d="M110 110h80M105 130h90M112 150h76" stroke="#fff" stroke-width="7" stroke-linecap="round"/><circle cx="150" cy="95" r="10" fill="#fff"/>',
+    book:'<path d="M108 100c14-6 28-6 42 0v70c-14-6-28-6-42 0zM192 100c-14-6-28-6-42 0v70c14-6 28-6 42 0z" stroke="#fff" stroke-width="6" stroke-linejoin="round" fill="none"/>',
+    tent:'<path d="M150 90l45 80H105z" stroke="#fff" stroke-width="7" stroke-linejoin="round" fill="none"/><path d="M150 90v80M128 170l22-40 22 40" stroke="#fff" stroke-width="5" stroke-linejoin="round"/>'
+  };
+  function grad(id,c1,c2){ return '<radialGradient id="'+id+'" cx="32%" cy="28%" r="85%"><stop offset="0%" stop-color="'+c2+'"/><stop offset="100%" stop-color="'+c1+'"/></radialGradient>'; }
+  function artSvg(image, alt){
+    return '<img src="'+image+'" alt="'+alt+'" loading="lazy" decoding="async">';
+  }
+  function programArt(p, idx){
+    return artSvg(p.image, p.imageAlt);
+  }
+
+  /* ---------------- Render featured training ---------------- */
+  var trainingGrid = document.getElementById("trainingGrid");
+  var featuredTraining = TRAININGS.filter(function(t){ return t.id==="indepth"; })[0];
+  var courseImages = featuredTraining.images || [{src:featuredTraining.image,alt:featuredTraining.imageAlt}];
+  trainingGrid.innerHTML =
+    '<div class="course-gallery" aria-label="In-depth Training images">'+
+      '<img id="courseGalleryImage" src="'+courseImages[0].src+'" alt="'+courseImages[0].alt+'" fetchpriority="high" decoding="async">'+
+      '<div class="course-gallery-controls">'+
+        '<button class="course-gallery-arrow" id="courseGalleryPrev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'+
+        '<div class="course-gallery-dots" id="courseGalleryDots" aria-label="Image pagination"></div>'+
+        '<button class="course-gallery-arrow" id="courseGalleryNext" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'+
+      '</div>'+
+    '</div>'+
+    '<div class="course-content">'+
+      '<span class="course-eyebrow">IN-DEPTH TRAINING</span><h3>'+featuredTraining.title+'</h3><p class="course-description">'+featuredTraining.tagline+'</p>'+
+      '<div class="course-facts"><span>'+featuredTraining.duration+'</span><span>Live online · Friday evenings</span></div>'+
+      '<p class="course-suitable"><strong>Suitable for</strong>'+featuredTraining.audience+'</p>'+
+      '<p class="course-price">'+money(featuredTraining.price,featuredTraining.currency)+'</p>'+
+      '<div class="course-actions"><button class="btn btn-outline" data-id="'+featuredTraining.id+'" data-kind="training">View details</button><button class="btn btn-primary" data-id="'+featuredTraining.id+'" data-kind="training">Choose a Friday</button></div>'+
+    '</div>';
+  var galleryIndex = 0;
+  var galleryDots = document.getElementById("courseGalleryDots");
+  galleryDots.innerHTML = courseImages.map(function(image,index){ return '<button class="course-gallery-dot'+(index===0?' is-active':'')+'" aria-label="Show image '+(index+1)+'" data-index="'+index+'"></button>'; }).join("");
+  function showCourseImage(index){
+    galleryIndex = (index+courseImages.length)%courseImages.length;
+    var image = courseImages[galleryIndex];
+    var imageEl = document.getElementById("courseGalleryImage");
+    imageEl.src = image.src; imageEl.alt = image.alt;
+    galleryDots.querySelectorAll(".course-gallery-dot").forEach(function(dot,i){ dot.classList.toggle("is-active",i===galleryIndex); });
+    document.getElementById("courseGalleryPrev").disabled = courseImages.length<2;
+    document.getElementById("courseGalleryNext").disabled = courseImages.length<2;
+  }
+  document.getElementById("courseGalleryPrev").addEventListener("click",function(){showCourseImage(galleryIndex-1);});
+  document.getElementById("courseGalleryNext").addEventListener("click",function(){showCourseImage(galleryIndex+1);});
+  galleryDots.addEventListener("click",function(e){var dot=e.target.closest("[data-index]");if(dot)showCourseImage(parseInt(dot.getAttribute("data-index"),10));});
+  showCourseImage(0);
+
+  document.getElementById("offlineIncludes").innerHTML = OFFLINE.includes.map(function(i){ return '<li>'+checkIconSm+'<span>'+i+'</span></li>'; }).join("");
+  document.getElementById("offlinePrice").textContent = money(OFFLINE.price);
+  var offlineArt = document.getElementById("offlineArt");
+  var offlineImages = OFFLINE.images;
+  var offlineImageIndex = 0;
+  offlineArt.innerHTML =
+    '<img id="offlineGalleryImage" src="'+offlineImages[0].src+'" alt="'+offlineImages[0].alt+'" decoding="async">'+
+    '<button class="offline-gallery-arrow prev" id="offlineGalleryPrev" type="button" aria-label="Previous workshop image">←</button>'+
+    '<button class="offline-gallery-arrow next" id="offlineGalleryNext" type="button" aria-label="Next workshop image">→</button>'+
+    '<div class="offline-gallery-dots" id="offlineGalleryDots" role="group" aria-label="Choose a workshop image">'+offlineImages.map(function(image,index){return '<button class="offline-gallery-dot'+(index===0?' is-active':'')+'" type="button" aria-label="Show workshop image '+(index+1)+'" aria-current="'+(index===0?'true':'false')+'" data-index="'+index+'"></button>';}).join("")+'</div>';
+  var offlineGalleryImage = document.getElementById("offlineGalleryImage");
+  var offlineGalleryDots = document.getElementById("offlineGalleryDots");
+  function showOfflineImage(index){
+    offlineImageIndex = (index+offlineImages.length)%offlineImages.length;
+    var image = offlineImages[offlineImageIndex];
+    offlineGalleryImage.style.opacity = "0";
+    offlineGalleryImage.onload = function(){offlineGalleryImage.style.opacity = "1";};
+    offlineGalleryImage.onerror = function(){offlineGalleryImage.style.opacity = "1";};
+    offlineGalleryImage.src = image.src;
+    offlineGalleryImage.alt = image.alt;
+    if(offlineGalleryImage.complete) offlineGalleryImage.style.opacity = "1";
+    offlineGalleryDots.querySelectorAll(".offline-gallery-dot").forEach(function(dot,dotIndex){
+      var active = dotIndex===offlineImageIndex;
+      dot.classList.toggle("is-active",active);
+      dot.setAttribute("aria-current",active?"true":"false");
+    });
+  }
+  document.getElementById("offlineGalleryPrev").addEventListener("click",function(){showOfflineImage(offlineImageIndex-1);});
+  document.getElementById("offlineGalleryNext").addEventListener("click",function(){showOfflineImage(offlineImageIndex+1);});
+  offlineGalleryDots.addEventListener("click",function(e){var dot=e.target.closest("[data-index]");if(dot)showOfflineImage(parseInt(dot.getAttribute("data-index"),10));});
+  var offlineSwipeStart = null;
+  offlineArt.addEventListener("touchstart",function(e){offlineSwipeStart=e.changedTouches[0].clientX;},{passive:true});
+  offlineArt.addEventListener("touchend",function(e){
+    if(offlineSwipeStart===null) return;
+    var delta=e.changedTouches[0].clientX-offlineSwipeStart;
+    if(Math.abs(delta)>40) showOfflineImage(offlineImageIndex+(delta<0?1:-1));
+    offlineSwipeStart=null;
+  },{passive:true});
+
+  /* ---------------- Programs carousel ---------------- */
+  var PROGRAMS = [
+    {loc:"Springfield, Massachusetts", title:"Linear Urban Forests", desc:"Reimagining American streets as native forests.", image:"https://afforestt.com/wp-content/uploads/2026/01/Excerpt-1024x576.jpg", imageAlt:"Linear urban forest project in Springfield, Massachusetts", url:"https://afforestt.com/linear-urban-forests-reimagining-american-streets-as-native-forests/"},
+    {loc:"Lesser Caucasus, Armenia", title:"Sub-Alpine Restoration", desc:"Restoring degraded ski slopes and mountain landscapes.", image:"https://afforestt.com/wp-content/uploads/2025/12/IMG_5002-1024x517.webp", imageAlt:"Afforestt restoration work in Armenia's Lesser Caucasus", url:"https://afforestt.com/restoring-sub-alpine-ski-slopes-of-the-lesser-caucasus/"},
+    {loc:"San Miguel de Allende, Mexico", title:"The Encinos", desc:"Building a native forest within a growing community.", image:"https://afforestt.com/wp-content/uploads/2025/12/DSC00830-1024x768.webp", imageAlt:"The Encinos native forest project in Mexico", url:"https://afforestt.com/the-encinos-of-mexico-building-a-native-forest-in-san-miguel-de-allende/"},
+    {loc:"Tunisia", title:"Forests of the Mediterranean", desc:"Growing native forests and sharing restoration knowledge.", image:"https://afforestt.com/wp-content/uploads/2025/12/IMG_2721-1-1024x472.jpg", imageAlt:"Afforestt's Mediterranean forest work in Tunisia", url:"https://afforestt.com/forests-of-the-mediterranean-afforestt-in-tunisia/"},
+    {loc:"Jodhpur, Rajasthan", title:"Soil Restoration in the Thar", desc:"Restoring desert soil with native grasses and millets.", image:"https://afforestt.com/wp-content/uploads/2025/07/DSC01230-1024x576.jpg", imageAlt:"Afforestt soil restoration project in Rajasthan", url:"https://afforestt.com/soil-restoration-in-the-thar-desert-using-millets-grasses/"},
+    {loc:"Rajasthan, India", title:"Maruvan", desc:"A living demonstration site for desert restoration.", image:"https://afforestt.com/wp-content/uploads/2025/07/IMG_3019-1024x576.jpg", imageAlt:"Afforestt forest restoration in the Rajasthan desert", url:"https://afforestt.com/maruvan/"}
+  ];
+  var programTrack = document.getElementById("programTrack");
+  var programDots = document.getElementById("programDots");
+  PROGRAMS.forEach(function(p, idx){
+    var slide = document.createElement("div");
+    slide.className = "program-slide";
+    slide.innerHTML = '<div class="program-art"><a href="'+p.url+'" target="_blank" rel="noopener noreferrer">'+programArt(p)+'</a></div><div class="program-body"><span class="loc">'+p.loc.toUpperCase()+'</span><h3>'+p.title+'</h3><p>'+p.desc+'</p><a class="program-link" href="'+p.url+'" target="_blank" rel="noopener noreferrer">Read project story</a></div>';
+    programTrack.appendChild(slide);
+    var dot = document.createElement("button");
+    if(idx===0) dot.className = "is-active";
+    dot.setAttribute("aria-label","Go to slide "+(idx+1));
+    dot.addEventListener("click", function(){ programTrack.scrollTo({left: programTrack.children[idx].offsetLeft - 4, behavior:"smooth"}); });
+    programDots.appendChild(dot);
+  });
+  function updateDots(){
+    var center = programTrack.scrollLeft + programTrack.clientWidth/2;
+    var closest = 0, closestDist = Infinity;
+    Array.prototype.forEach.call(programTrack.children, function(slide,i){
+      var mid = slide.offsetLeft + slide.offsetWidth/2;
+      var dist = Math.abs(mid-center);
+      if(dist<closestDist){closestDist=dist; closest=i;}
+    });
+    Array.prototype.forEach.call(programDots.children, function(d,i){ d.classList.toggle("is-active", i===closest); });
+  }
+  programTrack.addEventListener("scroll", function(){ window.requestAnimationFrame(updateDots); });
+  document.getElementById("progPrev").addEventListener("click", function(){ programTrack.scrollBy({left:-340, behavior:"smooth"}); });
+  document.getElementById("progNext").addEventListener("click", function(){ programTrack.scrollBy({left:340, behavior:"smooth"}); });
+  (function(){
+    var isDown=false,startX,scrollStart;
+    programTrack.addEventListener("pointerdown", function(e){ isDown=true; programTrack.classList.add("dragging"); startX=e.clientX; scrollStart=programTrack.scrollLeft; programTrack.setPointerCapture(e.pointerId); });
+    programTrack.addEventListener("pointermove", function(e){ if(!isDown) return; programTrack.scrollLeft = scrollStart - (e.clientX-startX); });
+    ["pointerup","pointerleave","pointercancel"].forEach(function(evt){ programTrack.addEventListener(evt, function(){ isDown=false; programTrack.classList.remove("dragging"); }); });
+  })();
+
+  /* ---------------- Trainees carousel ---------------- */
+  var TRAINEES = [
+    {name:"Ananya Sharma", city:"Bengaluru", country:"India", role:"Miyawaki Method Trainee", image:"https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=700&q=80"},
+    {name:"Carlos Mendes", city:"Lisbon", country:"Portugal", role:"Forest Restoration Trainee", image:"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=700&q=80"},
+    {name:"Maria Silva", city:"Sao Paulo", country:"Brazil", role:"DIY Forests Trainee", image:"https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=700&q=80"},
+    {name:"Daniel Okafor", city:"Lagos", country:"Nigeria", role:"Native Forest Trainee", image:"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=700&q=80"}
+  ];
+  var traineeTrack = document.getElementById("traineeTrack");
+  var traineeDots = document.getElementById("traineeDots");
+  TRAINEES.forEach(function(trainee, idx){
+    var card = document.createElement("button");
+    card.type = "button";
+    card.className = "trainee-card"+(idx===0 ? " is-selected" : "");
+    card.setAttribute("aria-pressed", idx===0 ? "true" : "false");
+    card.innerHTML = '<div class="trainee-photo"><img src="'+trainee.image+'" alt="Demo profile photo" loading="lazy"><span class="demo-label">DEMO PROFILE · SAMPLE PHOTO</span></div><div class="trainee-body"><h3>'+trainee.name+'</h3><p class="trainee-location">'+trainee.city+', '+trainee.country+'</p><p class="trainee-role">'+trainee.role+'</p></div>';
+    card.addEventListener("click", function(){
+      Array.prototype.forEach.call(traineeTrack.children, function(other){
+        var selected = other===card;
+        other.classList.toggle("is-selected", selected);
+        other.setAttribute("aria-pressed", selected ? "true" : "false");
+      });
+      card.scrollIntoView({behavior:reduceMotion ? "auto" : "smooth", block:"nearest", inline:"nearest"});
+      updateTraineeDots(idx);
+    });
+    traineeTrack.appendChild(card);
+    var dot = document.createElement("button");
+    dot.type = "button";
+    dot.className = idx===0 ? "is-active" : "";
+    dot.setAttribute("aria-label", "Show demo trainee "+(idx+1));
+    dot.addEventListener("click", function(){ scrollToTrainee(idx); });
+    traineeDots.appendChild(dot);
+  });
+  function updateTraineeDots(selectedIndex){
+    Array.prototype.forEach.call(traineeDots.children, function(dot, idx){
+      dot.classList.toggle("is-active", idx===selectedIndex);
+      dot.setAttribute("aria-current", idx===selectedIndex ? "true" : "false");
+    });
+  }
+  function scrollToTrainee(idx){
+    var card = traineeTrack.children[idx];
+    if(!card) return;
+    traineeTrack.scrollTo({left:card.offsetLeft-traineeTrack.offsetLeft, behavior:reduceMotion ? "auto" : "smooth"});
+    Array.prototype.forEach.call(traineeTrack.children, function(other, cardIndex){
+      var selected = cardIndex===idx;
+      other.classList.toggle("is-selected", selected);
+      other.setAttribute("aria-pressed", selected ? "true" : "false");
+    });
+    updateTraineeDots(idx);
+  }
+  function nearestTraineeIndex(){
+    var closest=0, distance=Infinity;
+    Array.prototype.forEach.call(traineeTrack.children, function(card, idx){
+      var current=Math.abs(card.offsetLeft-traineeTrack.offsetLeft-traineeTrack.scrollLeft);
+      if(current<distance){distance=current; closest=idx;}
+    });
+    return closest;
+  }
+  traineeTrack.addEventListener("scroll", function(){ window.requestAnimationFrame(function(){ updateTraineeDots(nearestTraineeIndex()); }); });
+  document.getElementById("traineePrev").addEventListener("click", function(){ scrollToTrainee(Math.max(0,nearestTraineeIndex()-1)); });
+  document.getElementById("traineeNext").addEventListener("click", function(){ scrollToTrainee(Math.min(TRAINEES.length-1,nearestTraineeIndex()+1)); });
+  (function(){
+    var isDown=false,startX,scrollStart;
+    traineeTrack.addEventListener("pointerdown", function(e){ if(e.pointerType==="touch") return; isDown=true; traineeTrack.classList.add("dragging"); startX=e.clientX; scrollStart=traineeTrack.scrollLeft; traineeTrack.setPointerCapture(e.pointerId); });
+    traineeTrack.addEventListener("pointermove", function(e){ if(!isDown) return; traineeTrack.scrollLeft=scrollStart-(e.clientX-startX); });
+    ["pointerup","pointerleave","pointercancel"].forEach(function(evt){ traineeTrack.addEventListener(evt, function(){ isDown=false; traineeTrack.classList.remove("dragging"); }); });
+  })();
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  /* Auto-play removed on purpose: moving content on its own makes it hard for
+     older/first-time visitors to read and can cause them to lose their place.
+     Visitors move this carousel themselves, using the arrows, the dots, or by
+     dragging/swiping it. */
+
+  /* ---------------- Reviews ---------------- */
+  var REVIEWS = [
+    {name:"Shreya Pareek", role:"Trainee", initials:"SP", color:"#493631", stars:5,
+      quote:"The training was very beneficial. I learnt so much and implemented the learnings to create my very own tiny patch of forest in my city. Thank you for the guidance."},
+    {name:"Arvind Menon", role:"In-depth Training, Kochi", initials:"AM", color:"#A5644B", stars:5,
+      quote:"Two Friday evenings were all it took to actually understand soil prep and species selection, not just watch it happen. Worth every rupee."},
+    {name:"Neha Chawla", role:"Offline Workshop batch, Dehradun", initials:"NC", color:"#80564A", stars:5,
+      quote:"Five days on-site with the team taught me more than a year of reading could. The food and stay being handled meant I could focus entirely on learning."},
+    {name:"Vikram Suri", role:"Crash Course, Jaipur", initials:"VS", color:"#B8755B", stars:4,
+      quote:"Booked the crash course on a whim before a Friday evening. Two hours in, I had a clear plan for the space behind my house."}
+  ];
+  var reviewTrack = document.getElementById("reviewTrack");
+  REVIEWS.forEach(function(r){
+    var card = document.createElement("div");
+    card.className = "review-card";
+    var s="";
+    for(var i=0;i<5;i++){ s += i<r.stars ? starIcon : '<svg viewBox="0 0 20 20" style="fill:var(--line)"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L10 14.9 4.4 18l1.4-6.2L1 7.5l6.4-.6L10 1z"/></svg>'; }
+    card.innerHTML = '<div class="stars">'+s+'</div><p class="quote">\u201C'+r.quote+'\u201D</p><div class="review-who"><div class="avatar" style="background:'+r.color+'">'+r.initials+'</div><div><strong>'+r.name+'</strong><span>'+r.role+'</span></div></div>';
+    reviewTrack.appendChild(card);
+  });
+
+  /* ---------------- Date helpers ---------------- */
+  var WEEKDAY_SHORT = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  var MONTH_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  function nextWeekdayDates(weekday, count, intervalWeeks){
+    var out = [];
+    var d = new Date(); d.setHours(0,0,0,0);
+    while(d.getDay() !== weekday){ d.setDate(d.getDate()+1); }
+    for(var i=0;i<count;i++){ out.push(new Date(d)); d.setDate(d.getDate() + 7*intervalWeeks); }
+    return out;
+  }
+  function fmtShort(d){ return WEEKDAY_SHORT[d.getDay()]+", "+d.getDate()+" "+MONTH_SHORT[d.getMonth()]; }
+  function fmtRange(start,end){ return start.getDate()+"\u2013"+end.getDate()+" "+MONTH_SHORT[end.getMonth()]; }
+  function addDays(d,n){ var r=new Date(d); r.setDate(r.getDate()+n); return r; }
+  function dkey(d){ return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); }
+
+  /* ---------------- Cart state ---------------- */
+  var CART_KEY = "afforestt_training_cart_v1";
+  var cart = [];
+  try{ var raw = localStorage.getItem(CART_KEY); if(raw) cart = JSON.parse(raw); }catch(e){ cart = []; }
+  function saveCart(){ try{ localStorage.setItem(CART_KEY, JSON.stringify(cart)); }catch(e){} }
+  function cartTotals(items){
+    var totals=[];
+    items.forEach(function(item){
+      var currency=item.currency||"INR";
+      var group=totals.filter(function(entry){return entry.currency===currency;})[0];
+      if(!group){group={currency:currency,subtotal:0};totals.push(group);}
+      group.subtotal+=item.price;
+    });
+    totals.forEach(function(group){group.gst=Math.round(group.subtotal*.18);group.total=group.subtotal+group.gst;});
+    return totals;
+  }
+  function formatCartTotals(totals,key){
+    return totals.map(function(group){return totals.length>1?group.currency+" "+money(group[key],group.currency):money(group[key],group.currency);}).join(" · ");
+  }
+
+  var cartBtn = document.getElementById("cartOpenBtn");
+  var cartBadge = document.getElementById("cartBadge");
+  var cartItemsEl = document.getElementById("cartItems");
+  var cartSummary = document.getElementById("cartSummary");
+
+  function renderCart(){
+    cartBadge.style.display = cart.length ? "flex" : "none";
+    cartBadge.textContent = cart.length;
+    if(cart.length===0){
+      cartItemsEl.innerHTML = '<div class="cart-empty"><svg viewBox="0 0 24 24" fill="none"><path d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L21 8H6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><p style="margin:0;">Your cart is empty.<br>Add a training to get started.</p></div>';
+      cartSummary.style.display = "none";
+      return;
+    }
+    cartItemsEl.innerHTML = "";
+    cart.forEach(function(item){
+      var row = document.createElement("div");
+      row.className = "cart-item";
+      row.innerHTML = '<div class="thumb">'+item.art+'</div><div class="info"><h5>'+item.title+'</h5><span>'+item.meta+'</span><br><button class="remove-link" data-cid="'+item.cartId+'">Remove</button></div><div class="price-col"><span class="price">'+money(item.price,item.currency)+'</span></div>';
+      cartItemsEl.appendChild(row);
+    });
+    var totals = cartTotals(cart);
+    document.getElementById("cartSubtotal").textContent = formatCartTotals(totals,"subtotal");
+    document.getElementById("cartGst").textContent = formatCartTotals(totals,"gst");
+    document.getElementById("cartTotal").textContent = formatCartTotals(totals,"total");
+    cartSummary.style.display = "block";
+  }
+  cartItemsEl.addEventListener("click", function(e){
+    var link = e.target.closest(".remove-link");
+    if(!link) return;
+    cart = cart.filter(function(x){ return x.cartId !== link.getAttribute("data-cid"); });
+    saveCart(); renderCart();
+  });
+
+  var scrim = document.getElementById("scrim");
+  var cartDrawer = document.getElementById("cartDrawer");
+  function openCart(){ scrim.classList.add("open"); cartDrawer.classList.add("open"); }
+  function closeCart(){ scrim.classList.remove("open"); cartDrawer.classList.remove("open"); }
+  cartBtn.addEventListener("click", openCart);
+  document.getElementById("cartCloseBtn").addEventListener("click", closeCart);
+  scrim.addEventListener("click", function(){ closeCart(); closeModal(); });
+
+  function addToCart(item){
+    item.cartId = "c" + Date.now() + Math.random().toString(16).slice(2);
+    cart.push(item);
+    saveCart(); renderCart();
+    cartBtn.classList.remove("bump"); void cartBtn.offsetWidth; cartBtn.classList.add("bump");
+    showToast("Added \u201C"+item.title+"\u201D to cart");
+    openCart();
+  }
+
+  /* ---------------- Modal ---------------- */
+  var modalScrim = document.getElementById("modalScrim");
+  var modalBody = document.getElementById("modalBody");
+  function openModal(html){ modalBody.innerHTML = html; modalScrim.classList.add("open"); }
+  function closeModal(){ modalScrim.classList.remove("open"); }
+  modalScrim.addEventListener("click", function(e){ if(e.target===modalScrim) closeModal(); });
+
+  /* ---------------- Training enroll modal (Friday chips) ---------------- */
+  trainingGrid.addEventListener("click", function(e){
+    var btn = e.target.closest("[data-kind='training']");
+    if(!btn) return;
+    var t = TRAININGS.filter(function(x){ return x.id===btn.getAttribute("data-id"); })[0];
+    openTrainingModal(t);
+  });
+
+  function openTrainingModal(t){
+    var fridays = nextWeekdayDates(5, 6, 1);
+    var chipsHtml = fridays.map(function(d,i){ return '<button class="chip-date" data-idx="'+i+'">'+fmtShort(d)+'<small>6:30 PM</small></button>'; }).join("");
+    var learnHtml = t.learn.map(function(l){ return '<li>'+checkIconSm+'<span>'+l+'</span></li>'; }).join("");
+    var incHtml = t.includes.map(function(i){ return '<li>'+checkIconSm+'<span>'+i+'</span></li>'; }).join("");
+    openModal(
+      '<button class="icon-btn close-x" id="tmClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>'+ 
+      '<div style="border-radius:14px; overflow:hidden; margin-bottom:16px;">'+artSvg(t.image,t.imageAlt)+'</div>'+
+      '<h3>'+t.title+'</h3><p>'+t.tagline+'</p>'+
+      '<p style="font-size:.85rem;"><strong>Suitable for:</strong> '+t.audience+'</p>'+
+      '<p style="font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:6px;">What you\u2019ll learn</p>'+
+      '<ul class="includes-list" style="margin-bottom:16px;">'+learnHtml+'</ul>'+
+      '<p style="font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:6px;">What\u2019s included</p>'+
+      '<ul class="includes-list" style="margin-bottom:18px;">'+incHtml+'</ul>'+
+      '<p style="font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:6px;">Choose your Friday evening session</p>'+
+      '<div class="date-chip-grid" id="tmChips">'+chipsHtml+'</div>'+
+      '<button class="btn btn-primary btn-block" id="tmAddBtn" disabled>Select a date to continue</button>'
+    );
+    var selectedIdx = null;
+    document.getElementById("tmClose").addEventListener("click", closeModal);
+    document.getElementById("tmChips").addEventListener("click", function(e){
+      var chip = e.target.closest(".chip-date");
+      if(!chip) return;
+      document.querySelectorAll("#tmChips .chip-date").forEach(function(c){ c.classList.remove("is-selected"); });
+      chip.classList.add("is-selected");
+      selectedIdx = parseInt(chip.getAttribute("data-idx"),10);
+      var addBtn = document.getElementById("tmAddBtn");
+      addBtn.disabled = false;
+      addBtn.innerHTML = cartIconSm + " Add to cart \u2014 " + money(t.price,t.currency);
+    });
+    document.getElementById("tmAddBtn").addEventListener("click", function(){
+      if(selectedIdx===null) return;
+      var d = fridays[selectedIdx];
+      addToCart({ title:t.title, price:t.price, currency:t.currency||"INR", meta:t.duration+" \u00B7 "+fmtShort(d)+" \u00B7 6:30 PM", art:artSvg(t.image,t.imageAlt) });
+      closeModal();
+    });
+  }
+
+  /* ---------------- Offline workshop modal (batch date chips) ---------------- */
+  document.getElementById("offlineEnrollBtn").addEventListener("click", function(){
+    var batches = nextWeekdayDates(6, 6, 3); /* Saturdays, 3 weeks apart */
+    var chipsHtml = batches.map(function(d,i){
+      var end = addDays(d,4);
+      return '<button class="chip-date" data-idx="'+i+'">'+fmtRange(d,end)+'<small>5 days</small></button>';
+    }).join("");
+    openModal(
+      '<button class="icon-btn close-x" id="omClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>'+
+      '<div style="border-radius:14px; overflow:hidden; margin-bottom:16px;">'+artSvg(OFFLINE.image,OFFLINE.imageAlt)+'</div>'+
+      '<h3>Offline Workshop</h3><p>Pick the 5-day batch that works for you. Food and accommodation are included.</p>'+
+      '<p style="font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:6px;">Choose your batch</p>'+
+      '<div class="date-chip-grid" id="omChips">'+chipsHtml+'</div>'+
+      '<button class="btn btn-primary btn-block" id="omAddBtn" disabled>Select a batch to continue</button>'
+    );
+    var selectedIdx = null;
+    document.getElementById("omClose").addEventListener("click", closeModal);
+    document.getElementById("omChips").addEventListener("click", function(e){
+      var chip = e.target.closest(".chip-date");
+      if(!chip) return;
+      document.querySelectorAll("#omChips .chip-date").forEach(function(c){ c.classList.remove("is-selected"); });
+      chip.classList.add("is-selected");
+      selectedIdx = parseInt(chip.getAttribute("data-idx"),10);
+      var addBtn = document.getElementById("omAddBtn");
+      addBtn.disabled = false;
+      addBtn.innerHTML = cartIconSm + " Add to cart \u2014 " + money(OFFLINE.price);
+    });
+    document.getElementById("omAddBtn").addEventListener("click", function(){
+      if(selectedIdx===null) return;
+      var d = batches[selectedIdx]; var end = addDays(d,4);
+      addToCart({ title:"Offline Workshop", price:OFFLINE.price, meta:fmtRange(d,end)+" \u00B7 in person", art:artSvg(OFFLINE.image,OFFLINE.imageAlt) });
+      closeModal();
+    });
+  });
+
+  /* ---------------- Webinar ---------------- */
+  var SEATS_KEY = "afforestt_webinar_seats_v1";
+  var seatsTotal = 40;
+  var seatsLeft = 12;
+  try{ var savedSeats = localStorage.getItem(SEATS_KEY); if(savedSeats!==null) seatsLeft = parseInt(savedSeats,10); }catch(e){}
+  var webinar = window.DIYWebinarData;
+  var webinarDate = webinar.date;
+  document.getElementById("webinarDateLine").textContent = webinar.formatDateTime(webinarDate);
+  document.getElementById("homeWebinarPrice").textContent = money(webinar.price);
+  function renderWebinarCountdown(){
+    var countdown = webinar.countdown(new Date());
+    var countdownEl = document.getElementById("homeWebinarCountdown");
+    if(countdown.complete){countdownEl.className="webinar-countdown-status";countdownEl.textContent="Webinar starting soon";return;}
+    if(countdownEl.childElementCount===0){
+      countdownEl.innerHTML = [["DAYS"],["HOURS"],["MINUTES"],["SECONDS"]].map(function(unit){
+        return '<span class="webinar-countdown-item"><strong>00</strong><span>'+unit[0]+'</span></span>';
+      }).join("");
+    }
+    [countdown.days,countdown.hours,countdown.minutes,countdown.seconds].forEach(function(value,index){
+      countdownEl.children[index].querySelector("strong").textContent=String(value).padStart(2,"0");
+    });
+  }
+  renderWebinarCountdown();
+  window.setInterval(renderWebinarCountdown,1000);
+  function renderSeats(){
+    var pct = Math.max(4, Math.round((seatsLeft/seatsTotal)*100));
+    document.getElementById("seatBarFill").style.width = pct + "%";
+    document.getElementById("seatsLeftText").textContent = seatsLeft > 0 ? ("Only "+seatsLeft+" of "+seatsTotal+" seats left") : "Fully booked \u2014 join the next one";
+    var btn = document.getElementById("webinarRegisterBtn");
+    btn.disabled = seatsLeft <= 0;
+    btn.textContent = seatsLeft <= 0 ? "Fully booked" : "Reserve my seat";
+  }
+  renderSeats();
+  document.getElementById("webinarRegisterBtn").addEventListener("click", function(){
+    if(seatsLeft<=0) return;
+    seatsLeft -= 1;
+    try{ localStorage.setItem(SEATS_KEY, String(seatsLeft)); }catch(e){}
+    renderSeats();
+    addToCart({ title:webinar.title, price:webinar.price, meta:webinar.formatDateTime(webinarDate), art:artSvg(TRAININGS[0].image,TRAININGS[0].imageAlt) });
+  });
+  /* ---------------- Checkout ---------------- */
+  var PAY_METHODS = [
+    {id:"upi", label:"UPI", icon:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 12h16M4 6h16M4 18h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'},
+    {id:"card", label:"Card", icon:'<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M3 10h18" stroke="currentColor" stroke-width="1.8"/></svg>'},
+    {id:"netbanking", label:"Netbanking", icon:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 10l8-6 8 6M5 10v9h14v-9M10 19v-6h4v6" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>'}
+  ];
+  var selectedPayMethod = "upi";
+
+  document.getElementById("checkoutBtn").addEventListener("click", function(){
+    if(cart.length===0) return;
+    var lines = "";
+    cart.forEach(function(item){
+      lines += '<div class="order-line"><span>'+item.title+'<small>'+item.meta+'</small></span><span>'+money(item.price,item.currency)+'</span></div>';
+    });
+    var totals = cartTotals(cart);
+    var taxLines = totals.map(function(group){return '<div class="order-line"><span>GST (18%)'+(totals.length>1?' ('+group.currency+')':'')+'</span><span>'+money(group.gst,group.currency)+'</span></div>';}).join("");
+    var totalLines = formatCartTotals(totals,"total");
+    var payChips = PAY_METHODS.map(function(m){ return '<button class="pay-chip'+(m.id===selectedPayMethod?' is-selected':'')+'" data-pm="'+m.id+'">'+m.icon+m.label+'</button>'; }).join("");
+    openModal(
+      '<button class="icon-btn close-x" id="modalCloseBtn" aria-label="Close"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>'+
+      '<h3>Order summary</h3><p style="margin-bottom:6px;">Review before payment.</p>'+
+      lines+
+      taxLines+
+      '<div class="order-total"><span>Total</span><span>'+totalLines+'</span></div>'+
+      '<form id="checkoutForm">'+
+      '<div class="checkout-fields">'+
+      '<label for="checkoutName">Full name<input id="checkoutName" name="name" autocomplete="name" required maxlength="100"></label>'+
+      '<label for="checkoutEmail">Email address<input id="checkoutEmail" name="email" type="email" autocomplete="email" required maxlength="254"></label>'+
+      '<label for="checkoutPhone">Phone number<input id="checkoutPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required pattern="[0-9+() -]{7,20}" title="Enter a valid phone number"></label>'+
+      '</div>'+
+      '<p style="font-size:.82rem; font-weight:600; color:var(--ink); margin:16px 0 4px;">Payment method</p>'+
+      '<div class="pay-methods" id="payMethods">'+payChips+'</div>'+
+      '<button class="btn btn-primary btn-block" style="margin-top:18px;" id="payNowBtn" type="submit">Complete demo booking</button>'+
+      '</form>'+
+      '<p style="font-size:.76rem; text-align:center; margin:12px 0 0;">Demo only: no real payment or booking is processed.</p>'
+    );
+    document.getElementById("modalCloseBtn").addEventListener("click", closeModal);
+    document.getElementById("payMethods").addEventListener("click", function(e){
+      var chip = e.target.closest(".pay-chip");
+      if(!chip) return;
+      selectedPayMethod = chip.getAttribute("data-pm");
+      document.querySelectorAll(".pay-chip").forEach(function(c){ c.classList.remove("is-selected"); });
+      chip.classList.add("is-selected");
+    });
+    document.getElementById("checkoutForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      var btn = document.getElementById("payNowBtn");
+      btn.disabled = true; btn.textContent = "Processing\u2026";
+      var customerName = document.getElementById("checkoutName").value.trim();
+      setTimeout(function(){
+        openModal(
+          '<button class="icon-btn close-x" id="modalCloseBtn2" aria-label="Close"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>'+
+          '<div class="pay-success"><svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="30" fill="var(--forest)"/><path d="M20 33l8 8 16-18" stroke="var(--on-forest)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>'+
+          '<h3>Demo booking complete</h3><p>Thanks, '+customerName+'. Your demo checkout includes '+cart.length+' item'+(cart.length>1?'s':'')+'. No payment was taken and no booking was submitted.</p>'+
+          '<button class="btn btn-primary btn-block" id="doneBtn">Done</button></div>'
+        );
+        fireConfetti();
+        document.getElementById("modalCloseBtn2").addEventListener("click", closeModal);
+        document.getElementById("doneBtn").addEventListener("click", function(){ cart=[]; saveCart(); renderCart(); closeModal(); closeCart(); });
+      }, 900);
+    });
+  });
+
+  function fireConfetti(){
+    if(reduceMotion) return;
+    var colors=["#493631","#A5644B","#D3A080","#F7F1E4","#C77F65"];
+    for(var i=0;i<28;i++){
+      var piece=document.createElement("div");
+      piece.className="confetti-piece";
+      piece.style.left=(Math.random()*100)+"vw";
+      piece.style.background=colors[Math.floor(Math.random()*colors.length)];
+      piece.style.animationDuration=(2+Math.random()*1.5)+"s";
+      piece.style.borderRadius=Math.random()>0.5?"50%":"2px";
+      document.body.appendChild(piece);
+      (function(p){ setTimeout(function(){ p.remove(); }, 4000); })(piece);
+    }
+  }
+
+  renderCart();
+
+  /* ---------------- Toast ---------------- */
+  var toast = document.getElementById("toast");
+  var toastText = document.getElementById("toastText");
+  var toastTimer=null;
+  function showToast(msg){ toastText.textContent=msg; toast.classList.add("show"); clearTimeout(toastTimer); toastTimer=setTimeout(function(){ toast.classList.remove("show"); }, 2600); }
+
+  /* ---------------- Mobile menu ---------------- */
+  var mobileMenu = document.getElementById("mobileMenu");
+  document.getElementById("hamburgerBtn").addEventListener("click", function(){ mobileMenu.classList.toggle("open"); });
+  mobileMenu.querySelectorAll("a").forEach(function(a){ a.addEventListener("click", function(){ mobileMenu.classList.remove("open"); }); });
+
+  /* ---------------- Scrollspy ---------------- */
+  var navLinks = document.querySelectorAll('.nav-links a[data-section]');
+  var sections = ["trainings","offline","webinar","trainees","programs","reviews"].map(function(id){ return document.getElementById(id); });
+  if("IntersectionObserver" in window){
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          var id = entry.target.id;
+          navLinks.forEach(function(a){ a.classList.toggle("active", a.getAttribute("data-section")===id); });
+        }
+      });
+    }, {rootMargin:"-40% 0px -50% 0px", threshold:0});
+    sections.forEach(function(s){ if(s) spy.observe(s); });
+  }
+
+  /* ---------------- Back to top ---------------- */
+  var topBtn = document.getElementById("topBtn");
+  window.addEventListener("scroll", function(){ topBtn.classList.toggle("show", window.scrollY > 700); });
+  topBtn.addEventListener("click", function(){ window.scrollTo({top:0, behavior:"smooth"}); });
+
+  if(new URLSearchParams(window.location.search).get("reserve")==="webinar") document.getElementById("webinarRegisterBtn").click();
+
+})();
+</script>
+</body>
+</html>

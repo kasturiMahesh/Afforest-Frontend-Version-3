@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F4F1E8">
+<title>Monthly Webinar — DIY Forests</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F1E8;--bg-raised:#FAF9F5;--secondary:#EAE6DA;--ink:#292724;--ink-soft:#625D57;--forest:#493631;--forest-dark:#362823;--forest-ink:#493631;--earth:#A5644B;--line:#D6D1C4;--on-forest:#F7F4EE;--header-bg:rgba(244,241,232,.94);--safe-t:env(safe-area-inset-top,0px);--safe-b:env(safe-area-inset-bottom,0px);--shadow:0 10px 24px -18px rgba(41,36,32,.18);}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:86px;}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.6 'Work Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-top:var(--safe-t);padding-bottom:calc(24px + var(--safe-b));}
+a{color:inherit;}
+img{display:block;max-width:100%;}
+button{font:inherit;}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:600;letter-spacing:0;color:var(--ink);margin:0 0 .4em;}
+p{max-width:62ch;margin:0 0 1em;color:var(--ink-soft);}
+.wrap{width:min(1180px,100%);margin:0 auto;padding:0 clamp(20px,4vw,40px);}
+:focus-visible{outline:3px solid var(--earth);outline-offset:3px;border-radius:4px;}
+.btn{min-height:48px;display:inline-flex;align-items:center;justify-content:center;padding:12px 20px;border:1px solid var(--forest);border-radius:8px;background:var(--forest);color:var(--on-forest);font-size:.92rem;font-weight:600;text-decoration:none;transition:background .2s ease,border-color .2s ease;}
+.btn:hover{background:var(--forest-dark);border-color:var(--forest-dark);}
+.site-header{position:sticky;top:0;z-index:10;background:var(--header-bg);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.header-inner{height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:600 1.2rem/1.15 'Fraunces',Georgia,serif;}
+.brand-mark{width:34px;height:34px;flex:none;}
+.brand small{display:block;margin-top:3px;font:500 .62rem/1.2 'Work Sans',sans-serif;letter-spacing:.04em;color:var(--ink-soft);}
+.header-link{font-size:.9rem;font-weight:600;text-decoration:none;color:var(--forest-ink);}
+.header-link:hover{text-decoration:underline;text-underline-offset:4px;}
+.header-return{min-height:42px;padding:9px 14px;font-size:.8rem;white-space:nowrap;}
+.webinar-hero{padding:clamp(42px,7vw,82px) 0 clamp(46px,6vw,68px);}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr);gap:clamp(32px,6vw,76px);align-items:center;}
+.eyebrow,.section-kicker{display:inline-block;margin-bottom:10px;color:var(--forest-ink);font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
+.webinar-hero h1{font-size:clamp(2.5rem,4vw,3.55rem);line-height:1.06;color:var(--forest);max-width:13ch;margin-bottom:12px;}
+.hero-subheading{font:500 clamp(1.2rem,2.1vw,1.5rem)/1.35 'Fraunces',Georgia,serif;color:var(--ink);margin:0 0 12px;max-width:30ch;}
+.hero-copy{max-width:56ch;font-size:1rem;line-height:1.6;margin-bottom:22px;}
+.hero-image{position:relative;aspect-ratio:4/3;overflow:hidden;border:1px solid var(--line);border-radius:10px;background:var(--secondary);}
+.hero-image img{width:100%;height:100%;object-fit:cover;}
+.event-meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin:0 0 16px;color:var(--ink);font-size:.9rem;font-weight:600;}
+.event-meta span{white-space:nowrap;}
+.countdown{display:flex;gap:clamp(12px,2vw,22px);margin:18px 0 22px;}
+.countdown-item{min-width:54px;display:grid;justify-items:center;line-height:1.2;}
+.countdown-item strong{font-size:1.45rem;font-weight:600;color:var(--forest);font-variant-numeric:tabular-nums;}
+.countdown-item span{font-size:.62rem;font-weight:700;letter-spacing:.06em;color:var(--ink-soft);}
+.countdown-status{font-size:.94rem;font-weight:600;color:var(--forest-ink);margin:20px 0;}
+.section{padding:clamp(52px,7vw,84px) 0;border-top:1px solid var(--line);}
+.section-heading{margin-bottom:30px;}
+.section-heading h2{font-size:clamp(1.8rem,3vw,2.35rem);line-height:1.13;color:var(--forest);max-width:24ch;margin-bottom:8px;}
+.section-heading p{font-size:.96rem;margin-bottom:0;}
+.resource-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;}
+.resource-card{min-width:0;background:var(--bg-raised);border:1px solid var(--line);border-radius:8px;overflow:hidden;}
+.resource-image{aspect-ratio:16/10;overflow:hidden;background:var(--secondary);}
+.resource-image img{width:100%;height:100%;object-fit:cover;transition:transform .25s ease;}
+.resource-card:hover .resource-image img{transform:scale(1.02);}
+.resource-copy{padding:16px 17px 18px;}
+.resource-label{display:block;margin-bottom:5px;color:var(--forest-ink);font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+.resource-copy h3{font-size:1.1rem;line-height:1.2;margin:0 0 6px;}
+.resource-copy p{font-size:.85rem;line-height:1.5;margin:0;}
+.qa-section{background:var(--secondary);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(36px,5vw,58px) 0;}
+.qa-inner{display:flex;align-items:center;justify-content:space-between;gap:28px;}
+.qa-copy h2{font-size:clamp(1.8rem,3vw,2.3rem);color:var(--forest);margin:0 0 8px;}
+.qa-copy p{max-width:65ch;margin:0;}
+.qa-details{display:flex;align-items:center;gap:18px;flex:none;}
+.qa-price{font:600 1.75rem/1 'Fraunces',Georgia,serif;color:var(--forest);white-space:nowrap;}
+.site-footer{padding:28px 0 34px;}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:18px;color:var(--ink-soft);font-size:.8rem;}
+.footer-inner a{color:var(--forest-ink);font-weight:600;text-decoration:none;}
+.sticky-booking{position:fixed;z-index:20;left:50%;bottom:calc(14px + var(--safe-b));width:min(1120px,calc(100% - 32px));transform:translate(-50%,calc(120% + 20px));opacity:0;pointer-events:none;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 18px;background:var(--bg-raised);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);transition:transform .24s ease,opacity .24s ease;}
+.sticky-booking.is-visible{transform:translate(-50%,0);opacity:1;pointer-events:auto;}
+.sticky-info{min-width:0;}
+.sticky-label{display:block;color:var(--forest-ink);font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;}
+.sticky-question{font-size:.88rem;color:var(--ink);line-height:1.35;}
+.sticky-action{display:flex;align-items:center;gap:14px;flex:none;}
+.sticky-price{font:600 1.45rem/1 'Fraunces',Georgia,serif;color:var(--forest);white-space:nowrap;}
+.sticky-close{width:38px;height:38px;flex:none;display:grid;place-items:center;padding:0;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--ink-soft);font-size:1.3rem;cursor:pointer;}
+.sticky-close:hover{background:var(--secondary);}
+@media(max-width:900px){.resource-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:760px){.hero-grid{grid-template-columns:1fr;gap:26px;}.hero-image{order:1;}.hero-copy-wrap{order:0;}.qa-inner{align-items:flex-start;flex-direction:column;}.qa-details{width:100%;justify-content:space-between;}}
+@media(max-width:600px){body{padding-bottom:calc(30px + var(--safe-b));}.resource-grid{grid-template-columns:1fr;gap:16px;}.resource-image{aspect-ratio:16/9;}.sticky-booking{width:calc(100% - 20px);bottom:calc(10px + var(--safe-b));display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px 12px;padding:12px;}.sticky-info{grid-column:1/2;}.sticky-label{font-size:.61rem;}.sticky-question{font-size:.78rem;}.sticky-action{grid-column:2/3;grid-row:1/3;flex-direction:column;align-items:stretch;gap:8px;}.sticky-price{text-align:center;font-size:1.25rem;}.sticky-action .btn{min-height:46px;padding:10px 13px;font-size:.82rem;}.sticky-close{position:absolute;right:8px;top:7px;width:30px;height:30px;background:var(--bg-raised);}.sticky-info{padding-right:24px;}}
+@media(max-width:420px){.header-inner{gap:8px;}.brand{gap:7px;font-size:1.05rem;}.brand small{font-size:.54rem;}.header-return{min-height:40px;padding:8px 10px;font-size:.68rem;}}
+@media(max-width:380px){.event-meta{gap:6px 12px;font-size:.82rem;}.countdown{gap:8px;}.countdown-item{min-width:48px;}.sticky-question{max-width:21ch;}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}.resource-image img,.sticky-booking{transition:none;}}
+</style>
+<script src="./webinar-data.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="./afforestt-trainings%20(1).html#top" aria-label="DIY Forests home">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="var(--forest)"/><path d="M20 30V19M20 19C15 19 12 15 12 10C17 10 20 13 20 17C20 13 23 10 28 10C28 15 25 19 20 19Z" stroke="var(--on-forest)" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      <span>DIY Forests<small>BY SHUBHENDU SHARMA</small></span>
+    </a>
+    <a class="btn header-return" href="./afforestt-trainings%20(1).html#top" aria-label="Back to the main DIY Forests website">Back to Main Website</a>
+  </div>
+</header>
+<main>
+  <section class="webinar-hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy-wrap">
+        <span class="eyebrow">DIY Forests · Live online</span>
+        <h1>Learn the Miyawaki Method</h1>
+        <p class="hero-subheading">A simple introduction to growing native forests.</p>
+        <p class="hero-copy">Explore the basics of the Miyawaki Method through practical examples before joining our live Q&amp;A webinar.</p>
+        <div class="event-meta"><span id="heroWebinarDate">Loading webinar date</span><span id="heroWebinarFormat">Live Online</span><span id="heroWebinarPrice">₹149</span></div>
+        <div class="countdown" id="heroCountdown" aria-label="Time until the webinar" aria-live="off"></div>
+        <a class="btn" data-reserve-webinar href="./afforestt-trainings%20(1).html?reserve=webinar#webinar">Reserve My Seat — ₹149</a>
+      </div>
+      <div class="hero-image"><img src="./WhatsApp%20Image%202026-10-07%20at%204.41.12%20PM.jpeg" alt="Forest growth shown from a newly planted site to a mature native forest" fetchpriority="high"></div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="preview-heading">
+    <div class="wrap">
+      <div class="section-heading">
+        <span class="section-kicker">Sample learning resources</span>
+        <h2 id="preview-heading">A preview of what you'll learn</h2>
+        <p>Explore a few simple concepts from the Miyawaki Method before joining the live session.</p>
+      </div>
+      <div class="resource-grid" id="resourceGrid"></div>
+    </div>
+  </section>
+
+  <section class="qa-section" aria-labelledby="qa-heading">
+    <div class="wrap qa-inner">
+      <div class="qa-copy">
+        <span class="section-kicker">Live Q&amp;A</span>
+        <h2 id="qa-heading">Still have questions?</h2>
+        <p>Join the live Q&amp;A and ask your questions about the Miyawaki Method, forest creation, training options, or how to get started.</p>
+      </div>
+      <div class="qa-details">
+        <div><strong id="qaWebinarDate">Loading webinar date</strong><br><span id="qaWebinarFormat">Live online</span></div>
+        <span class="qa-price" id="qaWebinarPrice">₹149</span>
+        <a class="btn" data-reserve-webinar href="./afforestt-trainings%20(1).html?reserve=webinar#webinar">Reserve My Seat</a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <span>DIY Forests · A live introduction to the Miyawaki Method</span>
+    <a href="./afforestt-trainings%20(1).html">Return to DIY Forests</a>
+  </div>
+</footer>
+<aside class="sticky-booking" id="stickyBooking" aria-label="Reserve a webinar seat" aria-hidden="true" inert>
+  <div class="sticky-info">
+    <span class="sticky-label" id="stickyWebinarDate">LIVE Q&amp;A</span>
+    <span class="sticky-question">Have questions about the Miyawaki Method?</span>
+  </div>
+  <div class="sticky-action">
+    <span class="sticky-price" id="stickyWebinarPrice">₹149</span>
+    <a class="btn" data-reserve-webinar href="./afforestt-trainings%20(1).html?reserve=webinar#webinar">Reserve My Seat</a>
+  </div>
+  <button class="sticky-close" id="closeStickyBooking" type="button" aria-label="Close webinar booking bar">×</button>
+</aside>
+<script>
+(function(){
+  "use strict";
+  var webinar=window.DIYWebinarData;
+  var reserveUrl="./afforestt-trainings%20(1).html?reserve=webinar#webinar";
+  var dateLabel=webinar.formatDateTime(webinar.date);
+  var priceLabel="₹"+webinar.price.toLocaleString("en-IN");
+  document.getElementById("heroWebinarDate").textContent=dateLabel;
+  document.getElementById("heroWebinarFormat").textContent=webinar.format;
+  document.getElementById("heroWebinarPrice").textContent=priceLabel;
+  document.getElementById("qaWebinarDate").textContent=dateLabel;
+  document.getElementById("qaWebinarFormat").textContent=webinar.format;
+  document.getElementById("qaWebinarPrice").textContent=priceLabel;
+  document.getElementById("stickyWebinarDate").textContent="LIVE Q&A · "+dateLabel;
+  document.getElementById("stickyWebinarPrice").textContent=priceLabel;
+  document.querySelectorAll("[data-reserve-webinar]").forEach(function(link){
+    link.href=reserveUrl;
+    link.textContent=link.classList.contains("btn")&&link.closest(".hero-copy-wrap")?"Reserve My Seat — "+priceLabel:link.textContent;
+  });
+
+  function renderCountdown(){
+    var value=webinar.countdown(new Date());
+    var target=document.getElementById("heroCountdown");
+    if(value.complete){target.className="countdown-status";target.textContent="Webinar starting soon";return;}
+    if(target.childElementCount===0){
+      target.innerHTML=["DAYS","HOURS","MINUTES","SECONDS"].map(function(label){
+        return '<span class="countdown-item"><strong>00</strong><span>'+label+'</span></span>';
+      }).join("");
+    }
+    [value.days,value.hours,value.minutes,value.seconds].forEach(function(amount,index){
+      target.children[index].querySelector("strong").textContent=String(amount).padStart(2,"0");
+    });
+  }
+  renderCountdown();
+  window.setInterval(renderCountdown,1000);
+
+  var resourceCards=[
+    {title:"Understanding the Miyawaki Method",label:"Method",description:"A simple introduction to the approach behind native forest creation.",image:"./webinar-section-images/WhatsApp%20Image%202026-10-07%20at%205.08.31%20PM.jpeg",alt:"Afforestt forested hillside with the words Create a Forest"},
+    {title:"Choosing Native Species",label:"Planning",description:"Explore how local plant life can inform the planning of a native forest.",image:"./webinar-section-images/WhatsApp%20Image%202026-10-07%20at%205.08.29%20PM.jpeg",alt:"Established forest planting in Indiana, US"},
+    {title:"Preparing the Soil",label:"Site preparation",description:"A look at the ground conditions considered before planting begins.",image:"./webinar-section-images/WhatsApp%20Image%202026-10-07%20at%205.08.31%20PM%20(1).jpeg",alt:"Rows of seedlings on a prepared planting site"},
+    {title:"Planting a Dense Forest",label:"Planting",description:"An introduction to how a planting plan comes together on site.",image:"./webinar-section-images/WhatsApp%20Image%202026-10-07%20at%205.08.30%20PM.jpeg",alt:"Dense native forest surrounding a path"},
+    {title:"From Barren Land to Forest",label:"Forest growth",description:"See forest growth represented across different stages of a site.",image:"./webinar-section-images/WhatsApp%20Image%202026-10-07%20at%205.08.30%20PM%20(1).jpeg",alt:"Established Afforestt forest growth with training text on the image"},
+    {title:"Maintaining a Young Forest",label:"After planting",description:"An introduction to care after a young forest has been planted.",image:"./webinar-section-images/WhatsApp%20Image%202026-10-07%20at%205.12.10%20PM.jpeg",alt:"Seedlings planted across an industrial campus with site information"}
+  ];
+  document.getElementById("resourceGrid").innerHTML=resourceCards.map(function(card){
+    return '<article class="resource-card"><div class="resource-image"><img src="'+card.image+'" alt="'+card.alt+'" loading="lazy" decoding="async"></div><div class="resource-copy"><span class="resource-label">'+card.label+'</span><h3>'+card.title+'</h3><p>'+card.description+'</p></div></article>';
+  }).join("");
+
+  var sticky=document.getElementById("stickyBooking");
+  var dismissed=false;
+  try{dismissed=sessionStorage.getItem("diy-webinar-booking-dismissed")==="true";}catch(e){}
+  function updateSticky(){
+    var threshold=document.documentElement.scrollHeight*.18;
+    var show=!dismissed&&window.scrollY>0&&window.scrollY+window.innerHeight>=threshold;
+    sticky.classList.toggle("is-visible",show);
+    sticky.setAttribute("aria-hidden",show?"false":"true");
+    sticky.inert=!show;
+  }
+  window.addEventListener("scroll",updateSticky,{passive:true});
+  document.getElementById("closeStickyBooking").addEventListener("click",function(){
+    dismissed=true;
+    sticky.classList.remove("is-visible");
+    sticky.setAttribute("aria-hidden","true");
+    sticky.inert=true;
+    try{sessionStorage.setItem("diy-webinar-booking-dismissed","true");}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
